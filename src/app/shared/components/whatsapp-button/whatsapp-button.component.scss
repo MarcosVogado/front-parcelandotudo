@@ -1,0 +1,63 @@
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  /* assegura que fique acima de outros elementos */
+  z-index: 1001;
+  text-align: center;
+}
+
+/* Círculo verde do ícone */
+.circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #25D366; /* verde oficial do WhatsApp */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+.circle i {
+  color: #FFFFFF;
+  font-size: 1.7rem;
+}
+.circle:hover {
+  transform: scale(1.1);
+}
+
+/* Rótulo de ajuda (balão) - oculto inicialmente */
+.help-label {
+  display: none;
+  position: absolute;
+  bottom: 80px; /* posicionado acima do botão */
+  right: 0;
+  background-color: #FFFFFF;
+  color: #003033;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  /* pequena seta triangular apontando para o botão (opcional) */
+}
+.help-label::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 18px;
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: #FFFFFF transparent;
+  /* cria um pequeno triângulo abaixo do balão */
+}
+.whatsapp-button:hover .help-label {
+  display: block;
+}
+
+/* Ajustes para mobile: manter o botão visível sem necessidade de hover */
+@media (max-width: 768px) {
+  .help-label {
+    display: none; /* Ocultar rótulo em mobile (sem hover) */
+  }
+}

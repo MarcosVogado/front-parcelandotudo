@@ -1,0 +1,109 @@
+.hero-section {
+  padding: 100px 20px 60px 20px; /* espaçamento grande para destacar hero */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Container do conteúdo principal do hero */
+.hero-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap; /* permite quebrar em mobile */
+  margin-bottom: 40px;
+}
+
+/* Texto do hero */
+.text-section {
+  flex: 1 1 50%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+.text-section h1 {
+  font-size: 2rem;
+  color: #002244; /* preto ou azul bem escuro */
+  margin-bottom: 15px;
+}
+.text-section .highlight {
+  color: #002244;
+  font-weight: 700;
+}
+.text-section .subtitle {
+  font-size: 1.1rem;
+  color: #555555; /* cinza escuro para subtítulo explicativo */
+  line-height: 1.5;
+}
+
+/* Seção do formulário (cartão) */
+.form-section {
+  flex: 1 1 40%;
+  max-width: 480px;
+}
+.form-section app-barcode-form {
+  width: 100%;
+  /* O componente interno já terá seu próprio estilo de card */
+}
+
+/* Faixa de ícones de confiança */
+.trust-section {
+  display: flex;
+  justify-content: center;
+  background-color: #F4FAFF; /* azul muito claro para destaque da faixa */
+  padding: 20px 10px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+  font-size: 0.95rem;
+  color: #004080; /* texto/ícone em azul da marca */
+}
+.trust-item i {
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: #004080;
+}
+/* Texto dentro de .trust-item herda cor azul, com peso médio */
+.trust-item span {
+  font-weight: 500;
+}
+
+/* Seção "Saiba mais" */
+.more-info {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.more-info-link {
+  display: inline-block;
+  font-weight: 500;
+  color: #004080;
+  text-decoration: none;
+  border: 2px solid #004080;
+  border-radius: 4px;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+}
+.more-info-link:hover {
+  background-color: #004080;
+  color: #FFFFFF;
+}
+.more-info-text {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+/* Responsividade: em telas menores, empilhar texto e formulário */
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .text-section, .form-section {
+    max-width: 100%;
+  }
+  .text-section {
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,31 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+/* Estilo do logotipo */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Links de navegação */
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #004080;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}

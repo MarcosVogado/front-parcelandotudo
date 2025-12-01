@@ -1,0 +1,20 @@
+<form class="barcode-form">
+  <!-- Rótulo do campo -->
+  <label for="barcodeInput">Código de barras</label>
+  
+  <!-- Campo de texto com ícone à direita -->
+  <div class="input-group">
+    <input id="barcodeInput" type="text" name="barcode"
+           placeholder="Insira aqui o código de barras do seu tributo ou taxa" />
+    <i class="fas fa-barcode"></i>
+  </div>
+  
+  <!-- Texto auxiliar abaixo do campo -->
+  <small class="help-text">Aceitamos tributos municipais, estaduais, federais e diversas taxas.</small>
+  
+  <!-- Botões do formulário -->
+  <div class="button-group">
+    <button type="button" class="btn primary-btn" (click)="consultBoleto()">Consultar boleto</button>
+    <button type="button" class="btn secondary-btn" (click)="clearField()">Limpar campo</button>
+  </div>
+</form>
