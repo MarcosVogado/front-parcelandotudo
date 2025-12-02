@@ -1,109 +1,198 @@
+:host {
+  display: block;
+  color: #0f172a;
+}
+
 .hero-section {
-  padding: 100px 20px 60px 20px; /* espaçamento grande para destacar hero */
+  position: relative;
+  padding: 140px 24px 90px;
+  background: radial-gradient(120% 120% at 15% 20%, #e9f2ff 0%, rgba(233, 242, 255, 0) 55%),
+              radial-gradient(140% 140% at 90% 80%, #e9f2ff 0%, rgba(233, 242, 255, 0) 60%),
+              #f7faff;
+  overflow: hidden;
+}
+
+.hero-inner {
   max-width: 1200px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 60px;
+  align-items: center;
 }
 
-/* Container do conteúdo principal do hero */
-.hero-content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap; /* permite quebrar em mobile */
-  margin-bottom: 40px;
-}
-
-/* Texto do hero */
-.text-section {
-  flex: 1 1 50%;
-  max-width: 500px;
-  margin-bottom: 20px;
-}
 .text-section h1 {
-  font-size: 2rem;
-  color: #002244; /* preto ou azul bem escuro */
-  margin-bottom: 15px;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  color: #0f172a;
 }
-.text-section .highlight {
-  color: #002244;
+
+.highlight {
+  color: #2b63ff;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin: 0;
+  max-width: 520px;
+}
+
+.form-section {
+  width: 100%;
+  max-width: 540px;
+  justify-self: end;
+}
+
+.features-strip {
+  max-width: 1200px;
+  margin: 0 auto 70px;
+  padding: 28px 24px;
+  background: #f5f8ff;
+  border-radius: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.05);
+}
+
+.feature-item {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  text-align: center;
+  color: #111827;
+}
+
+.icon-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #e7edff;
+  color: #2b63ff;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+}
+
+.feature-item h3 {
+  margin: 0;
+  font-size: 1.05rem;
   font-weight: 700;
 }
-.text-section .subtitle {
-  font-size: 1.1rem;
-  color: #555555; /* cinza escuro para subtítulo explicativo */
-  line-height: 1.5;
+
+.feature-item p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.98rem;
 }
 
-/* Seção do formulário (cartão) */
-.form-section {
-  flex: 1 1 40%;
-  max-width: 480px;
-}
-.form-section app-barcode-form {
-  width: 100%;
-  /* O componente interno já terá seu próprio estilo de card */
+.about-section {
+  position: relative;
+  overflow: hidden;
+  padding: 90px 24px 120px;
+  background: linear-gradient(180deg, #f0f5ff 0%, #dfe9ff 100%);
 }
 
-/* Faixa de ícones de confiança */
-.trust-section {
-  display: flex;
-  justify-content: center;
-  background-color: #F4FAFF; /* azul muito claro para destaque da faixa */
-  padding: 20px 10px;
-  border-radius: 8px;
-  margin-bottom: 30px;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  margin: 0 15px;
-  font-size: 0.95rem;
-  color: #004080; /* texto/ícone em azul da marca */
-}
-.trust-item i {
-  font-size: 1.2rem;
-  margin-right: 8px;
-  color: #004080;
-}
-/* Texto dentro de .trust-item herda cor azul, com peso médio */
-.trust-item span {
-  font-weight: 500;
+.about-section::before,
+.about-section::after {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(43, 99, 255, 0.18);
+  border-radius: 50%;
 }
 
-/* Seção "Saiba mais" */
-.more-info {
+.about-section::before {
+  left: -120px;
+  bottom: 60px;
+}
+
+.about-section::after {
+  right: -120px;
+  top: 40px;
+}
+
+.about-content {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
   text-align: center;
-  margin-bottom: 60px;
-}
-.more-info-link {
-  display: inline-block;
-  font-weight: 500;
-  color: #004080;
-  text-decoration: none;
-  border: 2px solid #004080;
-  border-radius: 4px;
-  padding: 10px 16px;
-  margin-bottom: 8px;
-}
-.more-info-link:hover {
-  background-color: #004080;
-  color: #FFFFFF;
-}
-.more-info-text {
-  font-size: 0.9rem;
-  color: #666666;
+  z-index: 1;
 }
 
-/* Responsividade: em telas menores, empilhar texto e formulário */
+.about-content h2 {
+  margin: 0 0 16px;
+  font-size: 2.1rem;
+  color: #111827;
+}
+
+.about-content p {
+  margin: 0 0 28px;
+  color: #4b5563;
+  font-size: 1.05rem;
+}
+
+.about-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: 2px solid #1f5bff;
+  color: #1f5bff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  background: #f4f7ff;
+  transition: all 0.2s ease;
+}
+
+.about-button:hover {
+  background: #1f5bff;
+  color: #ffffff;
+}
+
+.about-button .arrow {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 1050px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .form-section {
+    justify-self: start;
+  }
+
+  .text-section h1 {
+    font-size: 2.6rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .hero-content {
-    flex-direction: column;
-    align-items: stretch;
+  .hero-section {
+    padding: 120px 18px 70px;
   }
-  .text-section, .form-section {
-    max-width: 100%;
+
+  .text-section h1 {
+    font-size: 2.2rem;
   }
-  .text-section {
-    margin-bottom: 30px;
+
+  .subtitle {
+    font-size: 1.05rem;
+  }
+
+  .features-strip {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 22px 18px;
+  }
+
+  .about-section {
+    padding: 70px 18px 90px;
   }
 }

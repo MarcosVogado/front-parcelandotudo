@@ -12,11 +12,12 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #25D366; /* verde oficial do WhatsApp */
+  background: linear-gradient(145deg, #2fd679, #20bf60); /* verde oficial do WhatsApp */
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s;
+  box-shadow: 0 12px 22px rgba(32, 191, 96, 0.35);
 }
 .circle i {
   color: #FFFFFF;
@@ -50,9 +51,6 @@
   border-style: solid;
   border-color: #FFFFFF transparent;
   /* cria um pequeno triângulo abaixo do balão */
-}
-.whatsapp-button:hover .help-label {
-  display: block;
 }
 
 /* Ajustes para mobile: manter o botão visível sem necessidade de hover */

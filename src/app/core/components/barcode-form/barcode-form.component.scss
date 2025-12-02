@@ -1,85 +1,150 @@
 .barcode-form {
-  background-color: #FFFFFF;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 28px 60px rgba(17, 24, 39, 0.12);
+  border: 1px solid #eef1f6;
+  display: grid;
+  gap: 12px;
 }
 
-/* Rótulo do campo */
-label {
+.form-header label {
   display: block;
-  font-weight: 500;
-  color: #002244;
-  margin-bottom: 8px;
+  font-weight: 700;
+  color: #111827;
+  font-size: 1rem;
 }
 
-/* Grupo do campo de entrada com ícone */
 .input-group {
   position: relative;
-  margin-bottom: 10px;
 }
+
 .input-group input {
   width: 100%;
-  padding: 12px 40px 12px 12px;  /* espaço à direita para ícone */
+  padding: 14px 48px 14px 14px;
   font-size: 1rem;
-  border: 2px solid #AAD4F5;     /* borda azul suave */
-  border-radius: 6px;
+  border: 2px solid #d6e3ff;
+  border-radius: 10px;
   outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+.input-group input:focus {
+  border-color: #2b63ff;
+  box-shadow: 0 0 0 3px rgba(43, 99, 255, 0.15);
+}
+
 .input-group input::placeholder {
-  color: #AAAAAA; /* placeholder cinza claro */
+  color: #9ca3af;
 }
-/* Ícone do código de barras posicionado no campo */
+
 .input-group i {
   position: absolute;
-  right: 12px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888888; /* ícone em cinza médio */
-  font-size: 1.2rem;
+  color: #9ca3af;
+  font-size: 1.1rem;
 }
 
-/* Texto auxiliar */
 .help-text {
   display: block;
-  font-size: 0.85rem;
-  color: #666666;
-  margin-bottom: 15px;
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 
-/* Grupo de botões */
 .button-group {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  display: grid;
 }
 
-/* Estilos base para botões */
 .btn {
   cursor: pointer;
   font-size: 1rem;
-  padding: 12px 20px;
-  border-radius: 6px;
-  font-weight: 600;
-  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  width: 100%;
 }
 
-/* Botão primário: fundo azul forte, texto branco */
 .primary-btn {
-  background-color: #004080;
-  color: #FFFFFF;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-.primary-btn:hover {
-  background-color: #003060; /* um azul mais escuro no hover */
+  background-color: #2b63ff;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(43, 99, 255, 0.25);
 }
 
-/* Botão secundário: fundo branco, borda azul, texto azul */
-.secondary-btn {
-  background-color: #FFFFFF;
-  color: #004080;
-  border: 2px solid #004080;
+.primary-btn:hover {
+  background-color: #1f52e6;
+  transform: translateY(-1px);
 }
+
+.secondary-btn {
+  background-color: #ffffff;
+  color: #2b63ff;
+  border-color: #2b63ff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .secondary-btn:hover {
-  background-color: #F0F8FF; /* leve fundo azul claro no hover */
+  background-color: #f4f7ff;
+}
+
+.secure-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  padding-top: 4px;
+}
+
+.secure-row i {
+  color: #2b63ff;
+}
+
+.badge-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f4f7ff;
+  border: 1px solid #e3e9ff;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.badge i {
+  color: #2b63ff;
+  font-size: 1.1rem;
+}
+
+.badge .pci-icon {
+  font-size: 1.25rem;
+}
+
+.badge-text strong {
+  display: block;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.badge-text small {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 540px) {
+  .barcode-form {
+    padding: 22px;
+  }
 }

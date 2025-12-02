@@ -2,30 +2,51 @@
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #FFFFFF;
-  border-bottom: 1px solid #EEEEEE;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eef1f6;
+  padding: 12px 28px;
   z-index: 1000;
 }
 
-/* Estilo do logotipo */
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .logo {
   display: flex;
   align-items: center;
 }
 
-/* Links de navegação */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
 .nav-links a {
-  margin-left: 20px;
   text-decoration: none;
-  color: #004080;
-  font-weight: 500;
-  font-size: 0.95rem;
+  color: #1e2a3b;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  color: #1f5bff;
+}
+
+@media (max-width: 900px) {
+  .header-container {
+    padding: 12px 20px;
+  }
+  .header-inner {
+    gap: 14px;
+  }
+  .nav-links {
+    gap: 14px;
+  }
 }
