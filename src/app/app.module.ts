@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +12,8 @@ import { FooterComponent } from './core/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BarcodeFormComponent } from './core/components/barcode-form/barcode-form.component';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { BarcodeFormComponent } from './core/components/barcode-form/barcode-for
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@
 
 .hero-section {
   position: relative;
-  padding: 90px 20px 70px;
+  padding: 90px 20px 50px;
   background: #ffffff;
   overflow: hidden;
 }
@@ -55,8 +55,16 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
-  gap: 44px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "text form"
+    "image form";
+  gap: 32px 44px;
   align-items: center;
+}
+
+.text-section {
+  grid-area: text;
 }
 
 .text-section h1 {
@@ -71,16 +79,29 @@
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #4b5563;
   margin: 0;
   max-width: 520px;
 }
 
 .form-section {
+  grid-area: form;
   width: 100%;
-  max-width: 540px;
+  max-width: 600px;
   justify-self: end;
+}
+
+.hero-illustration {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 14px;
+  margin-top: 18px;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.12);
+}
+
+.hero-illustration-wrap {
+  grid-area: image;
 }
 
 .features-strip {
@@ -201,7 +222,11 @@
 @media (max-width: 1050px) {
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 36px;
+    grid-template-areas:
+      "text"
+      "form"
+      "image";
+    gap: 28px;
   }
 
   .form-section {
@@ -238,6 +263,16 @@
 
   .subtitle {
     font-size: 1.05rem;
+  }
+
+  .hero-illustration-wrap {
+    justify-self: center;
+    width: 100%;
+  }
+
+  .hero-illustration {
+    max-width: 100%;
+    margin-top: 12px;
   }
 
   .features-strip {
