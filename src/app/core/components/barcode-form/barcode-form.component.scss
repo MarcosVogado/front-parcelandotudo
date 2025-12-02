@@ -2,8 +2,8 @@
   background-color: #ffffff;
   padding: 28px;
   border-radius: 20px;
-  box-shadow: 0 28px 60px rgba(17, 24, 39, 0.12);
-  border: 1px solid #eef1f6;
+  box-shadow: 12px 20px 32px rgba(17, 24, 39, 0.18);
+  border: 1px solid #e0e0e0;
   display: grid;
   gap: 12px;
 }
@@ -96,55 +96,77 @@
 .secure-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 6px;
   color: #6b7280;
-  font-size: 0.9rem;
-  padding-top: 4px;
+  font-size: 0.75rem;
 }
 
 .secure-row i {
-  color: #2b63ff;
+  color: #777777;
+  font-size: 0.7rem;
 }
 
 .badge-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  padding-top: 4px;
+  padding-top: 8px;
 }
 
 .badge {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  background: #f4f7ff;
-  border: 1px solid #e3e9ff;
-  border-radius: 12px;
-  padding: 10px 12px;
+  background: #e8eeff;
+  border: 1px solid #d8e2ff;
+  border-radius: 10px;
+  padding: 4px 4px;
 }
 
 .badge i {
   color: #2b63ff;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
+}
+
+.pci-badge {
+  background: #e8eeff;
 }
 
 .badge .pci-icon {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .badge-text strong {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   color: #111827;
+  margin-bottom: -8px;
 }
 
 .badge-text small {
   color: #6b7280;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  margin-top: -1px;
 }
 
 @media (max-width: 540px) {
   .barcode-form {
     padding: 22px;
+  }
+
+  .badge-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .badge {
+    justify-content: center;
+  }
+
+  .badge:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 220px;
   }
 }
