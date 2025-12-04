@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-barcode-form',
@@ -6,19 +7,57 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./barcode-form.component.scss']
 })
 export class BarcodeFormComponent implements OnInit {
-  barcodeValue: string = '';
+  form!: FormGroup;
+  submitted = false;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      barcode: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(44),
+          Validators.maxLength(48),
+          Validators.pattern(/^\d+$/)
+        ]
+      ]
+    });
+  }
 
   consultBoleto(): void {
-    // Lógica de consulta do boleto (ex: validação) poderia ser implementada aqui.
-    // Por enquanto, apenas um placeholder sem ação de backend.
-    console.log('Consultando boleto para código:', this.barcodeValue);
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+
+    const value = this.form.value.barcode;
+    console.log('Consultando boleto para código:', value);
   }
 
   clearField(): void {
-    this.barcodeValue = '';
+    this.form.reset();
+    this.submitted = false;
+  }
+
+  onInputChange(): void {
+    const current = this.form.get('barcode')?.value || '';
+    const sanitized = current.replace(/[^\d]/g, '').slice(0, 48);
+    if (sanitized !== current) {
+      this.form.get('barcode')?.setValue(sanitized, { emitEvent: false });
+    }
+  }
+
+  onBlur(): void {
+    this.barcodeControl?.markAsTouched();
+  }
+
+  get barcodeControl() {
+    return this.form.get('barcode');
+  }
+
+  get shouldShowErrors(): boolean {
+    return this.submitted || !!this.barcodeControl?.touched;
   }
 }
