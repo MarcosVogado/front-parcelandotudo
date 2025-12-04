@@ -12,6 +12,8 @@ import { FooterComponent } from './core/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BarcodeFormComponent } from './core/components/barcode-form/barcode-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 
 registerLocaleData(localePt);
 
@@ -28,7 +30,8 @@ registerLocaleData(localePt);
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' }

@@ -1,5 +1,5 @@
 <section class="hero-section">
-  <div class="metrics-ribbon">
+  <div class="metrics-ribbon" @fadeUp>
     <span class="badge-highlight">
       <i class="fa-solid fa-arrow-trend-up"></i>
       + {{ displayedAmount | currency:'BRL':'symbol':'1.0-0' }}/mês
@@ -8,7 +8,7 @@
   </div>
 
   <div class="hero-inner">
-    <div class="text-section">
+    <div class="text-section" @fadeUp>
       <h1>
         Digite o código de barras do seu
         <span class="highlight">TRIBUTO</span> ou
@@ -19,11 +19,11 @@
       </p>
     </div>
 
-    <div class="form-section">
+    <div class="form-section" @slideInRight>
       <app-barcode-form></app-barcode-form>
     </div>
 
-    <div class="hero-illustration-wrap">
+    <div class="hero-illustration-wrap" @fadeUp>
       <img
         class="hero-illustration"
         src="assets/images/person-phone.jpg"
@@ -34,7 +34,7 @@
   </div>
 </section>
 
-<section class="features-strip">
+<section class="features-strip" @staggerFadeList>
   <div class="feature-item">
     <div class="icon-wrapper"><i class="fa-solid fa-lock"></i></div>
     <h3>Ambiente 100% seguro</h3>
@@ -53,7 +53,7 @@
 </section>
 
 <section class="about-section">
-  <div class="about-content">
+  <div class="about-content" @fadeUp>
     <h2>Saiba mais sobre a Parcelando Tudo</h2>
     <p>
       Conheça nossa história, segurança e como ajudamos você a parcelar seus tributos

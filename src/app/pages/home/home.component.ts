@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    fadeUp,
+    slideInRight,
+    staggerFadeList,
+  ]
 })
 export class HomeComponent implements OnInit {
   displayedAmount = 0;
