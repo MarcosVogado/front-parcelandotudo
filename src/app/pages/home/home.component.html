@@ -52,8 +52,8 @@
   </div>
 </section>
 
-<section class="about-section">
-  <div class="about-content" @fadeUp>
+<section class="about-section" #aboutSection>
+  <div class="about-content" [@revealOnScroll]="aboutVisible ? 'visible' : 'hidden'">
     <h2>Saiba mais sobre a Parcelando Tudo</h2>
     <p>
       Conheça nossa história, segurança e como ajudamos você a parcelar seus tributos

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { fadeUp, revealOnScroll, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +9,40 @@ import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
     fadeUp,
     slideInRight,
     staggerFadeList,
+    revealOnScroll,
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedAmount = 0;
   private targetAmount = 20000000;
-  private animationDuration = 2500; // ms
+  private animationDuration = 2000; // ms
+  aboutVisible = false;
+  private intersectionObserver?: IntersectionObserver;
+
+  @ViewChild('aboutSection', { static: true }) aboutSection!: ElementRef<HTMLElement>;
 
   constructor() { }
 
   ngOnInit(): void {
     this.animateAmount();
+  }
+
+  ngAfterViewInit(): void {
+    this.intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          this.aboutVisible = true;
+          this.intersectionObserver?.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    this.intersectionObserver.observe(this.aboutSection.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.intersectionObserver?.disconnect();
   }
 
   private animateAmount(): void {

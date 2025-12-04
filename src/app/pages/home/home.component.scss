@@ -108,20 +108,20 @@
 .features-strip {
   width: 100%;
   margin: 0 auto;
-  padding: 24px 16px 28px;
+  padding: 20px 14px 24px;
   background: linear-gradient(180deg, #eef3ff 0%, #f7f9ff 100%);
   border-top: 1px solid #dbe4ff;
   border-bottom: 1px solid #dbe4ff;
   border-radius: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
   box-shadow: none;
 }
 
 .feature-item {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   justify-items: center;
   text-align: center;
   color: #111827;
@@ -321,8 +321,8 @@
 
   .features-strip {
     grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 22px 18px;
+    gap: 12px;
+    padding: 18px 16px;
   }
 
   .about-section {
