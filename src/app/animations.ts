@@ -39,3 +39,14 @@ export const revealOnScroll = trigger('revealOnScroll', [
     ], { optional: true })
   ])
 ]);
+
+// Stagger para selos de seguranカa no form de barras
+export const badgeStagger = trigger('badgeStagger', [
+  transition(':enter', [
+    query('.badge', [
+      style({ opacity: 0, transform: 'translateY(14px) scale(0.97)' }),
+      stagger(200, animate('450ms 120ms cubic-bezier(0.16, 1, 0.3, 1)',
+        style({ opacity: 1, transform: 'translateY(0) scale(1)' })))
+    ], { optional: true })
+  ])
+]);

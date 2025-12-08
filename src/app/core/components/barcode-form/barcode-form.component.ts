@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { badgeStagger } from '../../../animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-barcode-form',
   templateUrl: './barcode-form.component.html',
-  styleUrls: ['./barcode-form.component.scss']
+  styleUrls: ['./barcode-form.component.scss'],
+  animations: [badgeStagger]
 })
-export class BarcodeFormComponent implements OnInit {
+export class BarcodeFormComponent implements OnInit, AfterViewInit, OnDestroy {
   form!: FormGroup;
   submitted = false;
+  badgesVisible = false;
+  private badgesObserver?: IntersectionObserver;
+
+  @ViewChild('badgeSentinel', { static: true }) badgeSentinel!: ElementRef<HTMLElement>;
 
   constructor(private fb: FormBuilder) { }
 
@@ -24,6 +30,24 @@ export class BarcodeFormComponent implements OnInit {
         ]
       ]
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.badgesObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          this.badgesVisible = true;
+          this.badgesObserver?.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    this.badgesObserver.observe(this.badgeSentinel.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.badgesObserver?.disconnect();
   }
 
   consultBoleto(): void {

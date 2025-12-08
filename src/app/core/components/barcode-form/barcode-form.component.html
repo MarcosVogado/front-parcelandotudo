@@ -58,7 +58,9 @@
     <span>Seus dados estão protegidos com criptografia de ponta</span>
   </div>
 
-  <div class="badge-row">
+  <div #badgeSentinel class="badge-sentinel" aria-hidden="true"></div>
+
+  <div class="badge-row" *ngIf="badgesVisible" @badgeStagger>
     <div class="badge pci-badge">
       <i class="fa-solid fa-shield-halved pci-icon"></i>
       <div class="badge-text">
