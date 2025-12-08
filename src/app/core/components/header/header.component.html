@@ -4,9 +4,24 @@
       <img src="../../../../assets/images/logo.svg" alt="Logo da empresa Parcelando Tudo">
     </div>
 
-    <nav class="nav-links">
-      <a href="#">Como funciona</a>
-      <a href="#">Ajuda</a>
+    <button
+      type="button"
+      class="menu-toggle"
+      (click)="toggleMenu()"
+      [class.open]="isMenuOpen"
+      aria-label="Alternar menu"
+      [attr.aria-expanded]="isMenuOpen"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav-links" [class.open]="isMenuOpen">
+      <a href="#" (click)="closeMenu()">Como funciona</a>
+      <a href="#" (click)="closeMenu()">Ajuda</a>
     </nav>
   </div>
+
+  <div class="mobile-backdrop" *ngIf="isMenuOpen" (click)="closeMenu()"></div>
 </header>
