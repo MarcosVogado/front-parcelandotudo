@@ -12,6 +12,7 @@ import { FooterComponent } from './core/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BarcodeFormComponent } from './core/components/barcode-form/barcode-form.component';
+import { ConsultaVeicularComponent } from './pages/consulta-veicular/consulta-veicular.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 
@@ -24,7 +25,8 @@ registerLocaleData(localePt);
     FooterComponent,
     WhatsappButtonComponent,
     HomeComponent,
-    BarcodeFormComponent
+    BarcodeFormComponent,
+    ConsultaVeicularComponent
   ],
   imports: [
     BrowserModule,
