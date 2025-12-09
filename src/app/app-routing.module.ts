@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
+import { ConsultaBoletoComponent } from './pages/consulta-boleto/consulta-boleto.component';
 import { ConsultaVeicularComponent } from './pages/consulta-veicular/consulta-veicular.component';
+import { DefaultNavigationComponent } from './pages/default-navigation/default-navigation.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: DefaultNavigationComponent
+  },
+  {
+    path: 'consulta-boleto',
+    component: ConsultaBoletoComponent
   },
   {
     path: 'consulta-veicular',

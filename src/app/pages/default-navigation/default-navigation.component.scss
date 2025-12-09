@@ -1,0 +1,112 @@
+.nav-hub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 96px 24px;
+  background: radial-gradient(circle at 20% 20%, rgba(67, 153, 255, 0.1), transparent 35%),
+              radial-gradient(circle at 80% 0%, rgba(255, 157, 67, 0.12), transparent 40%),
+              #0f172a;
+  color: #e7edf6;
+}
+
+.nav-card {
+  max-width: 760px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9ac8ff;
+  background: rgba(154, 200, 255, 0.1);
+  border: 1px solid rgba(154, 200, 255, 0.3);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 36px;
+}
+
+.lead {
+  margin: 0 0 24px;
+  color: #c9d7e7;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.nav-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-link i {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  font-size: 18px;
+}
+
+.nav-link span {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.nav-link small {
+  display: block;
+  color: #c3d0e2;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-link.boleto i {
+  background: linear-gradient(135deg, rgba(64, 184, 255, 0.35), rgba(64, 148, 255, 0.2));
+}
+
+.nav-link.veicular i {
+  background: linear-gradient(135deg, rgba(255, 175, 64, 0.35), rgba(255, 140, 64, 0.2));
+}
+
+@media (max-width: 640px) {
+  .nav-card {
+    padding: 28px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+}

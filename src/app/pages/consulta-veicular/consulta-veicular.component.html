@@ -1,10 +1,90 @@
-<section class="consulta-veicular">
-  <div class="content">
-    <p class="eyebrow">Nova pagina</p>
-    <h1>Consulta veicular</h1>
-    <p class="lead">
-      Vamos adicionar aqui as informacoes sobre consulta veicular. Por enquanto esta pagina usa o mesmo
-      layout base com header e footer ativos.
-    </p>
+<section class="vehicle-page">
+  <div class="hero">
+    <div class="hero-text" @fadeUp>
+      <p class="eyebrow">Consulta veicular</p>
+      <h1>
+        Consulte o <span class="highlight">RENAVAM</span> do seu veículo
+      </h1>
+      <p class="lead">
+        Acesse informações detalhadas sobre qualquer veículo de forma rápida, segura e confiável. Seguimos
+        o mesmo padrão da consulta de boleto para uma experiência uniforme.
+      </p>
+
+      <div class="cta-row">
+        <button type="button" class="btn primary">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Consultar veículo
+        </button>
+        <button type="button" class="btn ghost">
+          <i class="fa-solid fa-circle-info"></i>
+          Ver como funciona
+        </button>
+      </div>
+
+      <div class="badge-row" @staggerFadeList>
+        <div class="badge feature-item" *ngFor="let badge of badges">
+          <i [class]="badge.icon"></i>
+          <span>{{ badge.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-col" @slideInRight>
+      <div class="form-card">
+        <div class="form-card__head">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-car-side"></i>
+          </div>
+          <div>
+            <p class="eyebrow">Consulta de RENAVAM</p>
+            <strong>Consulta sem impacto no veículo</strong>
+          </div>
+          <div class="head-chip">
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <form class="renavam-form" novalidate>
+          <label for="renavam">Número do RENAVAM <small>(9 a 11 dígitos)</small></label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-clipboard"></i>
+            <input
+              id="renavam"
+              name="renavam"
+              type="text"
+              placeholder="Ex: 00123456789"
+              inputmode="numeric"
+            />
+            <button type="button" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
+              <i class="fa-regular fa-circle-question"></i>
+            </button>
+          </div>
+
+          <button type="button" class="btn submit">
+            <i class="fa-solid fa-eye"></i>
+            Ver débitos agora
+          </button>
+        </form>
+
+        <div class="discoveries" @staggerFadeList>
+          <p class="discoveries__title">O que você vai descobrir:</p>
+          <div class="pill-grid">
+            <span class="pill feature-item" *ngFor="let item of discoveries">
+              <i [class]="item.icon"></i>
+              {{ item.label }}
+            </span>
+          </div>
+        </div>
+
+        <div class="privacy">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div>
+            <strong>Privacidade em primeiro lugar</strong>
+            <p>Não armazenamos seu RENAVAM. Consulta com canal oficial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

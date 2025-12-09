@@ -1,48 +1,329 @@
-.consulta-veicular {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 120px 24px;
-  background: linear-gradient(135deg, #0b1b2a 0%, #123453 50%, #0b1b2a 100%);
-  color: #f7f9fc;
+:host {
+  display: block;
+  color: #0f172a;
 }
 
-.content {
-  max-width: 720px;
-  text-align: center;
+.vehicle-page {
+  padding: 90px 20px 80px;
+  background: radial-gradient(circle at 18% 12%, rgba(43, 99, 255, 0.08), rgba(255, 255, 255, 0)),
+              radial-gradient(circle at 82% 8%, rgba(34, 197, 94, 0.08), rgba(255, 255, 255, 0)),
+              #f9fbff;
+}
+
+.hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.02fr 0.98fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.hero-text {
+  display: grid;
+  gap: 14px;
 }
 
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 12px;
-  margin-bottom: 12px;
   border-radius: 999px;
-  font-size: 12px;
+  background: #eef3ff;
+  color: #2b63ff;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.72rem;
+  width: fit-content;
 }
 
 h1 {
-  margin: 0 0 12px;
-  font-size: 42px;
-  line-height: 1.2;
+  margin: 0;
+  font-size: 3rem;
+  line-height: 1.1;
+}
+
+.highlight {
+  color: #2b63ff;
 }
 
 .lead {
-  margin: 0 auto;
-  color: #d3deeb;
-  font-size: 18px;
-  line-height: 1.6;
+  margin: 0;
+  color: #4b5563;
+  font-size: 1.08rem;
+  max-width: 560px;
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.32);
+  border-color: transparent;
+}
+
+.btn.primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn.ghost {
+  border-color: #2b63ff;
+  color: #2b63ff;
+  background: #f2f6ff;
+}
+
+.btn.ghost:hover {
+  background: #2b63ff;
+  color: #ffffff;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+}
+
+.badge i {
+  color: #2b63ff;
+}
+
+.form-col {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 18px 36px rgba(17, 24, 39, 0.12);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.form-card__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #2563eb, #2b63ff);
+  color: #ffffff;
+}
+
+.form-card__head strong {
+  font-size: 1.05rem;
+}
+
+.icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+}
+
+.head-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.head-chip .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c7d2fe;
+  display: block;
+}
+
+.renavam-form {
+  padding: 22px 20px 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.renavam-form label {
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.renavam-form small {
+  color: #6b7280;
+}
+
+.input-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #f8fafc;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.input-wrap input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #0f172a;
+}
+
+.input-wrap input::placeholder {
+  color: #9ca3af;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.btn.submit {
+  justify-content: center;
+  width: 100%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 14px;
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.28);
+}
+
+.btn.submit:hover {
+  transform: translateY(-1px);
+}
+
+.discoveries {
+  padding: 12px 20px 20px;
+}
+
+.discoveries__title {
+  margin: 0 0 12px;
+  color: #4b5563;
+  font-weight: 700;
+}
+
+.pill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #111827;
+  font-weight: 600;
+}
+
+.pill i {
+  color: #2b63ff;
+}
+
+.privacy {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 20px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #111827;
+}
+
+.privacy i {
+  color: #22c55e;
+  font-size: 1.2rem;
+}
+
+.privacy p {
+  margin: 2px 0 0;
+  color: #6b7280;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .form-col {
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
-  .consulta-veicular {
-    padding: 96px 18px;
+  .vehicle-page {
+    padding: 76px 16px 60px;
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 2.4rem;
+  }
+
+  .form-card__head {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon title"
+      "chip chip";
+  }
+
+  .head-chip {
+    grid-area: chip;
+    justify-content: flex-start;
   }
 }

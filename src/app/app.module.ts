@@ -10,10 +10,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
-import { HomeComponent } from './pages/home/home.component';
+import { ConsultaBoletoComponent } from './pages/consulta-boleto/consulta-boleto.component';
 import { BarcodeFormComponent } from './core/components/barcode-form/barcode-form.component';
 import { ConsultaVeicularComponent } from './pages/consulta-veicular/consulta-veicular.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { DefaultNavigationComponent } from './pages/default-navigation/default-navigation.component';
 
 
 registerLocaleData(localePt);
@@ -24,9 +25,10 @@ registerLocaleData(localePt);
     HeaderComponent,
     FooterComponent,
     WhatsappButtonComponent,
-    HomeComponent,
+    ConsultaBoletoComponent,
     BarcodeFormComponent,
-    ConsultaVeicularComponent
+    ConsultaVeicularComponent,
+    DefaultNavigationComponent
   ],
   imports: [
     BrowserModule,
