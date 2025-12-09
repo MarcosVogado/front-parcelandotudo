@@ -1,6 +1,8 @@
+@use '../../shared/styles/ui-tokens' as ui;
+
 :host {
   display: block;
-  color: #0f172a;
+  color: ui.$color-dark;
 }
 
 .hero-section {
@@ -75,7 +77,7 @@
 }
 
 .highlight {
-  color: #2b63ff;
+  color: ui.$color-primary;
 }
 
 .subtitle {
@@ -132,7 +134,7 @@
   height: 52px;
   border-radius: 50%;
   background: #e7edff;
-  color: #2b63ff;
+  color: ui.$color-primary;
   display: grid;
   place-items: center;
   font-size: 1.5rem;
@@ -202,8 +204,8 @@
   align-items: center;
   gap: 10px;
   padding: 12px 20px;
-  border: 2px solid #1f5bff;
-  color: #1f5bff;
+  border: 2px solid ui.$color-primary-strong;
+  color: ui.$color-primary-strong;
   text-decoration: none;
   border-radius: 10px;
   font-weight: 600;
@@ -214,7 +216,7 @@
 }
 
 .about-button:hover {
-  background: #1f5bff;
+  background: ui.$color-primary-strong;
   color: #ffffff;
 }
 

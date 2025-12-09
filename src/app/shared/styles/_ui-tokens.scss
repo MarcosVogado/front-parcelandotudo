@@ -1,0 +1,96 @@
+$color-primary: #2b63ff;
+$color-primary-strong: #1f5bff;
+$color-success: #22c55e;
+$color-success-strong: #16a34a;
+$color-dark: #0f172a;
+$color-muted: #4b5563;
+$color-soft: #f9fbff;
+$border-soft: #e5e7eb;
+$shadow-card: 0 18px 36px rgba(17, 24, 39, 0.12);
+$shadow-soft: 0 10px 24px rgba(17, 24, 39, 0.08);
+
+%ui-btn-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  background: #f8fafc;
+  color: $color-dark;
+}
+
+%ui-btn-primary {
+  @extend %ui-btn-base;
+  background: linear-gradient(135deg, $color-success, $color-success-strong);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.32);
+  border-color: transparent;
+}
+
+%ui-btn-ghost {
+  @extend %ui-btn-base;
+  border-color: $color-primary;
+  color: $color-primary;
+  background: #f2f6ff;
+}
+
+%ui-btn-submit {
+  @extend %ui-btn-base;
+  justify-content: center;
+  width: 100%;
+  background: linear-gradient(135deg, $color-success, $color-success-strong);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 14px;
+  box-shadow: 0 12px 24px rgba(34, 197, 94, 0.28);
+}
+
+%ui-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid $border-soft;
+  color: $color-dark;
+  font-weight: 600;
+  box-shadow: $shadow-soft;
+}
+
+%ui-pill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid $border-soft;
+  background: #f8fafc;
+  color: $color-dark;
+  font-weight: 600;
+}
+
+%ui-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: $shadow-card;
+  border: 1px solid $border-soft;
+}
+
+%ui-hero-title {
+  margin: 0 0 20px;
+  font-size: 3.5rem;
+  line-height: 1.1;
+}
+
+%ui-lead {
+  margin: 0;
+  color: $color-muted;
+  font-size: 1.1rem;
+}

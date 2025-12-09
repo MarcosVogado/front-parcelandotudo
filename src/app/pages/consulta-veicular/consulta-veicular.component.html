@@ -3,30 +3,13 @@
     <div class="hero-text" @fadeUp>
       <p class="eyebrow">Consulta veicular</p>
       <h1>
-        Consulte o <span class="highlight">RENAVAM</span> do seu veículo
+        Consulte débitos pelo <span class="highlight">RENAVAM</span> do seu veículo
       </h1>
       <p class="lead">
-        Acesse informações detalhadas sobre qualquer veículo de forma rápida, segura e confiável. Seguimos
-        o mesmo padrão da consulta de boleto para uma experiência uniforme.
+        Veja multas, IPVA, licenciamento e taxas em aberto de forma rápida e segura. Mesma experiência da consulta de boleto,
+        agora focada em débitos veiculares.
       </p>
 
-      <div class="cta-row">
-        <button type="button" class="btn primary">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          Consultar veículo
-        </button>
-        <button type="button" class="btn ghost">
-          <i class="fa-solid fa-circle-info"></i>
-          Ver como funciona
-        </button>
-      </div>
-
-      <div class="badge-row" @staggerFadeList>
-        <div class="badge feature-item" *ngFor="let badge of badges">
-          <i [class]="badge.icon"></i>
-          <span>{{ badge.label }}</span>
-        </div>
-      </div>
     </div>
 
     <div class="form-col" @slideInRight>
@@ -37,7 +20,6 @@
           </div>
           <div>
             <p class="eyebrow">Consulta de RENAVAM</p>
-            <strong>Consulta sem impacto no veículo</strong>
           </div>
           <div class="head-chip">
             <span class="dot"></span>
@@ -68,20 +50,115 @@
         </form>
 
         <div class="discoveries" @staggerFadeList>
-          <p class="discoveries__title">O que você vai descobrir:</p>
+          <p class="discoveries__title">O que você vai ver nesta consulta:</p>
           <div class="pill-grid">
-            <span class="pill feature-item" *ngFor="let item of discoveries">
-              <i [class]="item.icon"></i>
-              {{ item.label }}
-            </span>
+            <div class="pill feature-item" *ngFor="let item of discoveries">
+              <div class="pill-icon">
+                <i [class]="item.icon"></i>
+              </div>
+              <div class="pill-text">
+                <span class="pill-title">{{ item.label }}</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="privacy">
-          <i class="fa-solid fa-shield-halved"></i>
-          <div>
-            <strong>Privacidade em primeiro lugar</strong>
-            <p>Não armazenamos seu RENAVAM. Consulta com canal oficial.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section highlights-section alt">
+    <div class="section-inner highlights" @staggerFadeList>
+      <div class="highlight-card" *ngFor="let item of highlights">
+        <div class="highlight-icon">
+          <i [class]="item.icon"></i>
+        </div>
+        <div>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section how-section">
+    <div class="section-inner how-it-works" @fadeUp>
+      <div class="how-head">
+        <h2>Como funciona?</h2>
+        <p>Em 3 passos simples você resolve as pendências do seu veículo</p>
+      </div>
+      <div class="steps">
+        <div class="step-card" *ngFor="let step of steps; let i = index">
+          <div class="step-chip">{{ step.step }}</div>
+          <div class="step-icon">
+            <i [class]="step.icon"></i>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.desc }}</p>
+          <div class="step-arrow" *ngIf="i < steps.length - 1">
+            <i class="fa-solid fa-arrow-right-long"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section metrics-section alt">
+    <div class="section-inner metrics" @fadeUp>
+      <div class="metric" *ngFor="let stat of stats">
+        <i [class]="stat.icon"></i>
+        <div class="metric-value">{{ stat.value }}</div>
+        <p class="metric-label">{{ stat.label }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section testimonials-section">
+    <div class="section-inner testimonials" @staggerFadeList>
+      <div class="testimonial-card" *ngFor="let t of testimonials">
+        <div class="avatar">{{ t.initials }}</div>
+        <div class="testimonial-header">
+          <strong>{{ t.name }}</strong>
+          <span>{{ t.location }}</span>
+        </div>
+        <p class="quote">"{{ t.quote }}"</p>
+        <div class="stars">
+          <i class="fa-solid fa-star" *ngFor="let _ of [1,2,3,4,5]"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section sources-section alt">
+    <div class="section-inner sources" @fadeUp>
+      <p class="sources-title">Fontes de dados oficiais</p>
+      <div class="source-chips">
+        <span class="source" *ngFor="let source of sources">{{ source }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section faq-section">
+    <div class="section-inner faq" @fadeUp>
+      <div class="faq-head">
+        <span class="faq-chip">Tire suas dúvidas</span>
+        <h2>Perguntas Frequentes</h2>
+        <p>Respostas para as dúvidas mais comuns sobre RENAVAM e nossos serviços.</p>
+      </div>
+
+      <div class="faq-list">
+        <div
+          class="faq-item"
+          *ngFor="let faq of faqs; let i = index"
+          (click)="toggleFaq(i)"
+          [class.open]="openFaqIndex === i"
+        >
+          <div class="faq-question">
+            <span>{{ faq.question }}</span>
+            <i class="fa-solid" [class.fa-chevron-up]="openFaqIndex === i" [class.fa-chevron-down]="openFaqIndex !== i"></i>
+          </div>
+          <div class="faq-answer" *ngIf="openFaqIndex === i">
+            <p>{{ faq.answer }}</p>
           </div>
         </div>
       </div>
