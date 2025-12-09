@@ -7,9 +7,7 @@
 
 .vehicle-page {
   padding: 90px 20px 80px;
-  background: radial-gradient(circle at 18% 12%, rgba(43, 99, 255, 0.08), rgba(255, 255, 255, 0)),
-              radial-gradient(circle at 82% 8%, rgba(34, 197, 94, 0.08), rgba(255, 255, 255, 0)),
-              ui.$color-soft;
+  background: #ffffff;
 }
 
 .hero {
@@ -43,6 +41,7 @@
 
 h1 {
   @extend %ui-hero-title;
+  font-size: 3.8rem;
 }
 
 .highlight {
@@ -107,6 +106,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  margin-top: 16px;
 }
 
 .form-card {
@@ -227,34 +227,35 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  max-width: 520px;
+  max-width: 560px;
   margin: 0 auto;
 }
 
 .pill {
-  width: 140px;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  flex: 0 0 160px;
+  min-height: 56px;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
   border: 1px solid #dbe4ff;
   background: #eef3ff;
   color: ui.$color-dark;
-  box-shadow: 0 3px 8px rgba(17, 24, 39, 0.06);
+  box-shadow: 0 4px 10px rgba(17, 24, 39, 0.06);
   text-align: left;
+  font-weight: 600;
 }
 
 .pill-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
   background: rgba(43, 99, 255, 0.12);
   color: ui.$color-primary;
   display: grid;
   place-items: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .pill-text {
@@ -263,8 +264,8 @@ h1 {
 }
 
 .pill-title {
-  font-weight: 800;
-  font-size: 0.8rem;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 640px) {
@@ -289,7 +290,7 @@ h1 {
 }
 
 .section.alt {
-  background: #f9fbff;
+  background: #ffffff;
   border-top: 1px solid ui.$border-soft;
   border-bottom: 1px solid ui.$border-soft;
 }
@@ -299,10 +300,11 @@ h1 {
 }
 
 .highlights {
-  margin: 0;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
+  justify-items: center;
 }
 
 .highlight-card {

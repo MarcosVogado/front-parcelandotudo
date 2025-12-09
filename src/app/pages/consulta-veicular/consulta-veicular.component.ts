@@ -50,8 +50,6 @@ export class ConsultaVeicularComponent {
     }
   ];
 
-  sources = ['DENATRAN', 'SERPRO', 'DETRAN'];
-
   steps = [
     {
       step: 'Passo 01',
