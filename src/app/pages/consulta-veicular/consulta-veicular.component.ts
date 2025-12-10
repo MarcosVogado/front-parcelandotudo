@@ -13,20 +13,20 @@ export class ConsultaVeicularComponent {
     { icon: 'fa-solid fa-receipt', label: 'Débitos IPVA', detail: 'Inclui anos em aberto' },
     { icon: 'fa-solid fa-id-card', label: 'Licenciamento', detail: 'Taxa e atrasos' },
     { icon: 'fa-solid fa-ban', label: 'Restrições financeiras', detail: 'Bloqueios e gravames' },
-    { icon: 'fa-solid fa-file-invoice-dollar', label: 'Taxas em aberto', detail: 'Demais débitos do veículo' },
+    { icon: 'fa-solid fa-file-invoice-dollar', label: 'Taxas em aberto', detail: 'Demais débitos do veículo' }
   ];
 
   highlights = [
     { icon: 'fa-solid fa-shield', title: 'Dados Oficiais', desc: 'Informações direto da base do DETRAN' },
     { icon: 'fa-solid fa-stopwatch', title: 'Consulta Rápida', desc: 'Resultado em poucos segundos' },
     { icon: 'fa-solid fa-file-lines', title: 'Histórico Completo', desc: 'Multas, débitos e restrições' },
-    { icon: 'fa-solid fa-lock', title: '100% Seguro', desc: 'Seus dados protegidos' },
+    { icon: 'fa-solid fa-lock', title: '100% Seguro', desc: 'Seus dados protegidos' }
   ];
 
   stats = [
     { icon: 'fa-solid fa-people-group', value: '+120k', label: 'veículos consultados' },
     { icon: 'fa-regular fa-star', value: '4.9', label: 'avaliação média' },
-    { icon: 'fa-solid fa-arrow-trend-up', value: '98%', label: 'satisfação' },
+    { icon: 'fa-solid fa-arrow-trend-up', value: '98%', label: 'satisfação' }
   ];
 
   testimonials = [
@@ -34,19 +34,22 @@ export class ConsultaVeicularComponent {
       initials: 'CM',
       name: 'Carlos M.',
       location: 'São Paulo, SP',
-      quote: 'Consegui parcelar o IPVA atrasado em 12x. Muito prático!'
+      quote: 'Consegui parcelar o IPVA atrasado em 12x. Muito prático!',
+      image: 'assets/images/homem-perfil-1.jpg'
     },
     {
       initials: 'AS',
       name: 'Ana Paula S.',
       location: 'Rio de Janeiro, RJ',
-      quote: 'Descobri multas que nem sabia que tinha. Site confiável.'
+      quote: 'Descobri multas que nem sabia que tinha. Site confiável.',
+      image: 'assets/images/mulher-perfil-2.jpg'
     },
     {
       initials: 'RF',
       name: 'Roberto F.',
       location: 'Belo Horizonte, MG',
-      quote: 'Atendimento rápido e informações precisas. Recomendo!'
+      quote: 'Atendimento rápido e informações precisas. Recomendo!',
+      image: 'assets/images/homem-perfil-2.jpg'
     }
   ];
 
@@ -74,9 +77,13 @@ export class ConsultaVeicularComponent {
   faqs = [
     {
       question: 'O que é o RENAVAM?',
-      answer: 'O RENAVAM (Registro Nacional de Veículos Automotores) é um código único, normalmente com 11 dígitos, que funciona como o "CPF" do veículo e reúne o histórico e a situação atual.'
+      answer:
+        'O RENAVAM (Registro Nacional de Veículos Automotores) é um código único, normalmente com 11 dígitos, que funciona como o "CPF" do veículo e reúne o histórico e a situação atual.'
     },
-    { question: 'Onde encontro o RENAVAM do meu veículo?', answer: 'No CRLV/CRV (documento do veículo) ou em apps do Detran do seu estado.' },
+    {
+      question: 'Onde encontro o RENAVAM do meu veículo?',
+      answer: 'No CRLV/CRV (documento do veículo) ou em apps do Detran do seu estado.'
+    },
     { question: 'As informações são atualizadas?', answer: 'Sim, consultamos bases oficiais (Denatran/Serpro/Detran) em tempo real.' },
     { question: 'A consulta é gratuita?', answer: 'A verificação de débitos é gratuita; você só paga se optar por quitar/parcelar.' },
     { question: 'É seguro fazer pagamentos pelo site?', answer: 'Usamos ambiente seguro, criptografia e não armazenamos o RENAVAM.' },

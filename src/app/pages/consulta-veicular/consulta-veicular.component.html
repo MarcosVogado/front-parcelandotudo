@@ -113,9 +113,12 @@
   </div>
 
   <div class="section testimonials-section">
-    <div class="section-inner testimonials" @staggerFadeList>
-      <div class="testimonial-card" *ngFor="let t of testimonials">
-        <div class="avatar">{{ t.initials }}</div>
+      <div class="section-inner testimonials" @staggerFadeList>
+        <div class="testimonial-card" *ngFor="let t of testimonials">
+        <div class="avatar" [class.has-photo]="t.image">
+          <img *ngIf="t.image" [src]="t.image" [alt]="t.name" loading="lazy" />
+          <span *ngIf="!t.image">{{ t.initials }}</span>
+        </div>
         <div class="testimonial-header">
           <strong>{{ t.name }}</strong>
           <span>{{ t.location }}</span>
