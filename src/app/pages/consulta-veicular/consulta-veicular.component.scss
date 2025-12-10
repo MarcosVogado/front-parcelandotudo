@@ -8,6 +8,7 @@
 .vehicle-page {
   padding: 90px 20px 80px;
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 .hero {
@@ -147,7 +148,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-top: 16px;
+  margin-top: 4px;
 }
 
 .form-card {
@@ -219,7 +220,7 @@ h1 {
 
 .input-wrap {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
@@ -228,6 +229,11 @@ h1 {
   background: #f8fbff;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-wrap:focus-within {
+  border-color: rgba(43, 99, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(43, 99, 255, 0.12);
 }
 
 .input-wrap input {
@@ -248,6 +254,34 @@ h1 {
   color: #6b7280;
   cursor: pointer;
   padding: 6px;
+  transition: transform 0.18s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.icon-btn.clear {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: ui.$color-primary;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.icon-btn.clear:hover {
+  background: rgba(43, 99, 255, 0.16);
+  color: ui.$color-primary;
+}
+
+.icon-btn:hover {
+  transform: translateY(-1px);
+  color: ui.$color-primary;
+}
+
+.field-error {
+  margin: 4px 0 0;
+  color: #dc2626;
+  font-size: 0.9rem;
 }
 
 .btn.submit {
@@ -266,6 +300,13 @@ h1 {
   transform: translateY(-1px);
   background: darken(ui.$color-primary, 5%);
   box-shadow: 0 12px 26px rgba(43, 99, 255, 0.24);
+}
+
+.btn.submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
 }
 
 .discoveries {
@@ -306,6 +347,7 @@ h1 {
   box-shadow: 0 3px 6px rgba(17, 24, 39, 0.05);
   text-align: left;
   font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .pill-icon {
@@ -329,6 +371,12 @@ h1 {
   font-size: 0.82rem;
 }
 
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(17, 24, 39, 0.08);
+  border-color: rgba(43, 99, 255, 0.25);
+}
+
 @media (max-width: 640px) {
   .pill-grid {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -336,6 +384,12 @@ h1 {
 
   .pill {
     width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .pill-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
 
@@ -613,6 +667,20 @@ h1 {
   color: #e5e7eb;
 }
 
+.highlight-card,
+.metric,
+.testimonial-card {
+  transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.18s ease;
+}
+
+.highlight-card:hover,
+.metric:hover,
+.testimonial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(17, 24, 39, 0.1);
+  border-color: rgba(43, 99, 255, 0.18);
+}
+
 .sources {
   max-width: 900px;
   margin: 0 auto;
@@ -736,19 +804,45 @@ h1 {
 
 @media (max-width: 768px) {
   .vehicle-page {
-    padding: 76px 16px 60px;
+    padding: 48px 14px 44px;
+  }
+
+  .hero {
+    gap: 12px;
   }
 
   .hero-text {
-    padding: 40px 20px 80px;
-    min-height: 560px;
+    padding: 12px 12px 28px;
+    min-height: 320px;
     justify-items: center;
     text-align: center;
     background-position: center;
+    color: ui.$color-dark;
+    gap: 2px;
+  }
+
+  .hero-text::before,
+  .hero-text::after {
+    display: none;
   }
 
   h1 {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
+    color: ui.$color-dark;
+  }
+
+  .lead {
+    color: ui.$color-muted;
+  }
+
+  .eyebrow {
+    background: #eef3ff;
+    color: ui.$color-primary;
+    border: 1px solid rgba(43, 99, 255, 0.2);
+  }
+
+  .form-col {
+    margin-top: 4px;
   }
 
   .form-card__head {

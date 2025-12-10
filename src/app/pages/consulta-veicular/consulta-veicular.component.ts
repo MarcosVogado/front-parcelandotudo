@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
@@ -7,7 +7,7 @@ import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
   styleUrls: ['./consulta-veicular.component.scss'],
   animations: [fadeUp, slideInRight, staggerFadeList]
 })
-export class ConsultaVeicularComponent {
+export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestroy {
   discoveries = [
     { icon: 'fa-solid fa-ticket', label: 'Multas', detail: 'Pendentes e em aberto' },
     { icon: 'fa-solid fa-receipt', label: 'Débitos IPVA', detail: 'Inclui anos em aberto' },
@@ -23,10 +23,18 @@ export class ConsultaVeicularComponent {
   ];
 
   stats = [
-    { icon: 'fa-solid fa-people-group', value: '+120k', label: 'veículos consultados' },
-    { icon: 'fa-regular fa-star', value: '4.9', label: 'avaliação média' },
-    { icon: 'fa-solid fa-arrow-trend-up', value: '98%', label: 'satisfação' }
+    { icon: 'fa-solid fa-people-group', target: 120000, label: 'veículos consultados', format: 'k-plus' as const },
+    { icon: 'fa-regular fa-star', target: 4.9, label: 'avaliação média', format: 'decimal' as const, decimals: 1 },
+    { icon: 'fa-solid fa-arrow-trend-up', target: 98, label: 'satisfação', format: 'percent' as const }
   ];
+  displayStats: number[] = [];
+  private metricsObserver?: IntersectionObserver;
+  private hasAnimatedMetrics = false;
+
+  @ViewChild('metricsSection') metricsSection?: ElementRef<HTMLElement>;
+  renavamValue = '';
+  renavamError = '';
+  renavamTouched = false;
 
   testimonials = [
     {
@@ -94,7 +102,119 @@ export class ConsultaVeicularComponent {
 
   openFaqIndex: number | null = 0;
 
+  ngOnInit(): void {
+    this.displayStats = this.stats.map(() => 0);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.metricsSection?.nativeElement) {
+      this.metricsObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !this.hasAnimatedMetrics) {
+            this.hasAnimatedMetrics = true;
+            this.animateStats();
+            this.metricsObserver?.disconnect();
+          }
+        },
+        { threshold: 0.35 }
+      );
+
+      this.metricsObserver.observe(this.metricsSection.nativeElement);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.metricsObserver?.disconnect();
+  }
+
   toggleFaq(idx: number): void {
     this.openFaqIndex = this.openFaqIndex === idx ? null : idx;
+  }
+
+  clearRenavam(input: HTMLInputElement): void {
+    input.value = '';
+    this.renavamValue = '';
+    this.renavamTouched = false;
+    this.renavamError = '';
+  }
+
+  getFormattedStat(index: number): string {
+    const stat = this.stats[index];
+    const value = this.displayStats[index] ?? 0;
+
+    if (stat.format === 'k-plus') {
+      return `+${Math.round(value / 1000)}k`;
+    }
+
+    if (stat.format === 'percent') {
+      return `${Math.round(value)}%`;
+    }
+
+    if (stat.format === 'decimal') {
+      const decimals = stat.decimals ?? 1;
+      return value.toFixed(decimals);
+    }
+
+    return Math.round(value).toString();
+  }
+
+  private animateStats(): void {
+    const duration = 1600;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      this.displayStats = this.stats.map((stat, idx) => {
+        const target = stat.target ?? 0;
+        return idx === 1 ? Number((target * eased).toFixed(2)) : target * eased;
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        this.displayStats = this.stats.map((stat) => stat.target ?? 0);
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
+
+  onRenavamInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const digits = (input.value || '').replace(/\D/g, '').slice(0, 11);
+    this.renavamValue = digits;
+    input.value = digits;
+    this.renavamTouched = true;
+    this.validateRenavam();
+  }
+
+  private validateRenavam(): void {
+    if (!this.renavamTouched) {
+      this.renavamError = '';
+      return;
+    }
+
+    if (!this.renavamValue) {
+      this.renavamError = 'Informe o RENAVAM.';
+      return;
+    }
+
+    if (this.renavamValue.length < 9) {
+      this.renavamError = 'O RENAVAM deve ter pelo menos 9 dígitos.';
+      return;
+    }
+
+    if (this.renavamValue.length > 11) {
+      this.renavamError = 'O RENAVAM deve ter no máximo 11 dígitos.';
+      return;
+    }
+
+    this.renavamError = '';
+  }
+
+  get isRenavamValid(): boolean {
+    return !this.renavamError && this.renavamValue.length >= 9 && this.renavamValue.length <= 11;
   }
 }

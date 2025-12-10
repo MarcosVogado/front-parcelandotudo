@@ -21,7 +21,7 @@ export const slideInRight = trigger('slideInRight', [
 // Stagger para listas/grade de itens
 export const staggerFadeList = trigger('staggerFadeList', [
   transition(':enter', [
-    query('.feature-item', [
+    query('.feature-item, .highlight-card, .metric, .testimonial-card, .pill', [
       style({ opacity: 0, transform: 'translateY(12px)' }),
       stagger(200, animate('400ms ease-out',
         style({ opacity: 1, transform: 'translateY(0)' })))

@@ -34,15 +34,23 @@
               id="renavam"
               name="renavam"
               type="text"
+              [value]="renavamValue"
+              (input)="onRenavamInput($event)"
+              #renavamInput
               placeholder="Ex: 00123456789"
               inputmode="numeric"
+              autocomplete="off"
             />
+            <button type="button" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
             <button type="button" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
               <i class="fa-regular fa-circle-question"></i>
             </button>
           </div>
+          <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
-          <button type="button" class="btn submit">
+          <button type="button" class="btn submit" [disabled]="!isRenavamValid">
             <i class="fa-solid fa-magnifying-glass"></i>
             Consultar veículo
           </button>
@@ -68,7 +76,7 @@
 
   <div class="section highlights-section alt">
     <div class="section-inner highlights" @staggerFadeList>
-      <div class="highlight-card" *ngFor="let item of highlights">
+      <div class="highlight-card" *ngFor="let item of highlights" [@fadeUp]="'in'">
         <div class="highlight-icon">
           <i [class]="item.icon"></i>
         </div>
@@ -102,11 +110,11 @@
     </div>
   </div>
 
-  <div class="section metrics-section alt">
+  <div class="section metrics-section alt" #metricsSection>
     <div class="section-inner metrics" @fadeUp>
-      <div class="metric" *ngFor="let stat of stats">
+      <div class="metric" *ngFor="let stat of stats; let i = index">
         <i [class]="stat.icon"></i>
-        <div class="metric-value">{{ stat.value }}</div>
+        <div class="metric-value">{{ getFormattedStat(i) }}</div>
         <p class="metric-label">{{ stat.label }}</p>
       </div>
     </div>
