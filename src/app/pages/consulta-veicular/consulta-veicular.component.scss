@@ -21,7 +21,39 @@
 
 .hero-text {
   display: grid;
-  gap: 14px;
+  gap: 4px;
+  position: relative;
+  padding: 48px 36px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: transparent;
+  min-height: 620px;
+  color: #ffffff;
+  align-content: end;
+  justify-items: start;
+}
+
+.hero-text::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/motorista-vestido-com-um-traje-elegante.jpg');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1;
+}
+
+.hero-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.hero-text > * {
+  position: relative;
+  z-index: 1;
 }
 
 .eyebrow {
@@ -30,8 +62,9 @@
   gap: 8px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: #eef3ff;
-  color: ui.$color-primary;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -41,7 +74,9 @@
 
 h1 {
   @extend %ui-hero-title;
-  font-size: 3.8rem;
+  font-size: 3.2rem;
+  color: #ffffff;
+  margin: 0 0 2px;
 }
 
 .highlight {
@@ -51,6 +86,8 @@ h1 {
 .lead {
   @extend %ui-lead;
   max-width: 560px;
+  color: #ffffff;
+  margin: 0;
 }
 
 .cta-row {
@@ -114,6 +151,7 @@ h1 {
   max-width: 600px;
   overflow: hidden;
   @extend %ui-card;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
 }
 
 .form-card__head {
@@ -131,13 +169,13 @@ h1 {
 }
 
 .icon-wrap {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.16);
   display: grid;
   place-items: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .head-chip {
@@ -206,10 +244,20 @@ h1 {
 
 .btn.submit {
   @extend %ui-btn-submit;
+  background: ui.$color-primary;
+  border-color: ui.$color-primary;
+  color: #ffffff;
+  border-radius: 12px;
+  min-height: 54px;
+  padding: 14px 18px;
+  font-size: 1.05rem;
+  box-shadow: 0 12px 26px rgba(43, 99, 255, 0.22);
 }
 
 .btn.submit:hover {
   transform: translateY(-1px);
+  background: darken(ui.$color-primary, 5%);
+  box-shadow: 0 14px 30px rgba(43, 99, 255, 0.28);
 }
 
 .discoveries {
@@ -218,8 +266,10 @@ h1 {
 
 .discoveries__title {
   margin: 0 0 12px;
-  color: #4b5563;
-  font-weight: 700;
+  color: ui.$color-muted;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
 }
 
 .pill-grid {
