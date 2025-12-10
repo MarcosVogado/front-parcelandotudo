@@ -125,7 +125,11 @@
         </div>
         <p class="quote">"{{ t.quote }}"</p>
         <div class="stars">
-          <i class="fa-solid fa-star" *ngFor="let _ of [1,2,3,4,5]"></i>
+          <i
+            class="fa-solid"
+            *ngFor="let star of [1,2,3,4,5]"
+            [ngClass]="t.rating >= star ? 'fa-star' : (t.rating >= star - 0.5 ? 'fa-star-half-stroke' : 'fa-star off')"
+          ></i>
         </div>
       </div>
     </div>

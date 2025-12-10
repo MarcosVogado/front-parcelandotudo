@@ -12,7 +12,6 @@ export class ConsultaVeicularComponent {
     { icon: 'fa-solid fa-ticket', label: 'Multas', detail: 'Pendentes e em aberto' },
     { icon: 'fa-solid fa-receipt', label: 'Débitos IPVA', detail: 'Inclui anos em aberto' },
     { icon: 'fa-solid fa-id-card', label: 'Licenciamento', detail: 'Taxa e atrasos' },
-    { icon: 'fa-solid fa-ban', label: 'Restrições financeiras', detail: 'Bloqueios e gravames' },
     { icon: 'fa-solid fa-file-invoice-dollar', label: 'Taxas em aberto', detail: 'Demais débitos do veículo' }
   ];
 
@@ -35,21 +34,24 @@ export class ConsultaVeicularComponent {
       name: 'Carlos M.',
       location: 'São Paulo, SP',
       quote: 'Consegui parcelar o IPVA atrasado em 12x. Muito prático!',
-      image: 'assets/images/homem-perfil-1.jpg'
+      image: 'assets/images/homem-perfil-1.jpg',
+      rating: 5
     },
     {
       initials: 'AS',
       name: 'Ana Paula S.',
       location: 'Rio de Janeiro, RJ',
       quote: 'Descobri multas que nem sabia que tinha. Site confiável.',
-      image: 'assets/images/mulher-perfil-2.jpg'
+      image: 'assets/images/mulher-perfil-2.jpg',
+      rating: 5
     },
     {
       initials: 'RF',
       name: 'Roberto F.',
       location: 'Belo Horizonte, MG',
       quote: 'Atendimento rápido e informações precisas. Recomendo!',
-      image: 'assets/images/homem-perfil-2.jpg'
+      image: 'assets/images/homem-perfil-2.jpg',
+      rating: 4
     }
   ];
 

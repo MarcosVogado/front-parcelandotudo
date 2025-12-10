@@ -199,17 +199,18 @@ h1 {
 }
 
 .renavam-form {
-  padding: 22px 20px 14px;
+  padding: 22px 22px 10px;
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
 
 .renavam-form label {
   font-weight: 700;
-  color: ui.$color-dark;
+  color: #111827;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 0.95rem;
 }
 
 .renavam-form small {
@@ -222,10 +223,11 @@ h1 {
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #d8e3f3;
   border-radius: 12px;
-  background: #f8fafc;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  background: #f8fbff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-wrap input {
@@ -255,9 +257,9 @@ h1 {
   color: #ffffff;
   border-radius: 12px;
   min-height: 54px;
-  padding: 14px 18px;
+  padding: 16px 18px;
   font-size: 1.05rem;
-  box-shadow: 0 10px 22px rgba(43, 99, 255, 0.18);
+  box-shadow: 0 10px 20px rgba(43, 99, 255, 0.15);
 }
 
 .btn.submit:hover {
@@ -267,51 +269,54 @@ h1 {
 }
 
 .discoveries {
-  padding: 14px 20px 20px;
+  margin-top: 10px;
+  padding: 14px 18px 12px;
+  background: #f9fbff;
+  border: 1px solid #e5ecf7;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
 }
 
 .discoveries__title {
-  margin: 0 0 12px;
-  color: ui.$color-muted;
+  margin: 0 0 6px;
+  color: #374151;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
 }
 
 .pill-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  max-width: 560px;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 6px;
 }
 
 .pill {
-  flex: 0 0 160px;
-  min-height: 56px;
+  min-height: 44px;
+  height: 100%;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid #dbe4ff;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d7e1f4;
   background: #eef3ff;
-  color: ui.$color-dark;
-  box-shadow: 0 4px 10px rgba(17, 24, 39, 0.06);
+  color: #111827;
+  box-shadow: 0 3px 6px rgba(17, 24, 39, 0.05);
   text-align: left;
   font-weight: 600;
 }
 
 .pill-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: 8px;
-  background: rgba(43, 99, 255, 0.12);
+  width: 16px;
+  height: 16px;
+  border-radius: 6px;
+  background: rgba(43, 99, 255, 0.16);
   color: ui.$color-primary;
   display: grid;
   place-items: center;
-  font-size: 0.9rem;
+  font-size: 0.76rem;
 }
 
 .pill-text {
@@ -321,10 +326,14 @@ h1 {
 
 .pill-title {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 640px) {
+  .pill-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+
   .pill {
     width: 100%;
   }
@@ -598,6 +607,10 @@ h1 {
   display: flex;
   gap: 4px;
   color: #fbbf24;
+}
+
+.stars .off {
+  color: #e5e7eb;
 }
 
 .sources {
