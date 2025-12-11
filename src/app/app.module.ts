@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DefaultNavigationComponent } from './pages/default-navigation/default-navigation.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { pt_BR } from 'ng-zorro-antd/i18n';
+import { ZorroModule } from './shared/zorro.module';
 
 
 registerLocaleData(localePt);
@@ -38,7 +39,8 @@ registerLocaleData(localePt);
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    ZorroModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

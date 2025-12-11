@@ -26,12 +26,13 @@
           </div>
         </div>
 
-        <form class="renavam-form" novalidate>
+        <form nz-form class="renavam-form" novalidate>
           <label for="renavam">Número do RENAVAM <small>(9 a 11 dígitos)</small></label>
           <div class="input-wrap">
             <i class="fa-regular fa-clipboard"></i>
             <input
               id="renavam"
+              nz-input
               name="renavam"
               type="text"
               [value]="renavamValue"
@@ -41,16 +42,16 @@
               inputmode="numeric"
               autocomplete="off"
             />
-            <button type="button" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
+            <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
               <i class="fa-solid fa-xmark"></i>
             </button>
-            <button type="button" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
+            <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
               <i class="fa-regular fa-circle-question"></i>
             </button>
           </div>
           <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
-          <button type="button" class="btn submit" [disabled]="!isRenavamValid">
+          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid">
             <i class="fa-solid fa-magnifying-glass"></i>
             Consultar veículo
           </button>

@@ -1,4 +1,4 @@
-<form class="barcode-form" [formGroup]="form" novalidate>
+<form nz-form class="barcode-form" [formGroup]="form" novalidate>
   <div class="form-header">
     <label for="barcodeInput">Código de barras</label>
   </div>
@@ -6,6 +6,7 @@
   <div class="input-group" [class.invalid]="shouldShowErrors && form.get('barcode')?.invalid">
     <input
       id="barcodeInput"
+      nz-input
       type="text"
       name="barcode"
       formControlName="barcode"
@@ -39,6 +40,8 @@
   <div class="button-group">
     <button
       type="button"
+      nz-button
+      nzType="primary"
       class="btn primary-btn"
       [disabled]="form.invalid"
       [class.ready]="form.valid"
@@ -48,7 +51,7 @@
     </button>
   </div>
 
-  <button type="button" class="btn secondary-btn" (click)="clearField()">
+  <button type="button" nz-button nzType="default" class="btn secondary-btn" (click)="clearField()">
     <i class="fa-solid fa-xmark"></i>
     Limpar campo
   </button>

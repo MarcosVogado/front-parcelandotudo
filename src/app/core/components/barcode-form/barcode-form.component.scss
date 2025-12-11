@@ -80,6 +80,17 @@
   width: 100%;
 }
 
+.barcode-form .ant-btn {
+  width: 100%;
+  padding: 14px;
+  height: auto;
+  border-radius: 10px;
+  font-weight: 700;
+  border-width: 2px;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
 .btn:disabled {
   cursor: not-allowed;
 }
@@ -88,6 +99,7 @@
   background-color: #2b63ff;
   color: #ffffff;
   box-shadow: 0 12px 24px rgba(43, 99, 255, 0.25);
+  border-color: #2b63ff;
 }
 
 .primary-btn:hover {
@@ -99,7 +111,7 @@
   background-color: #b8c7ff;
   color: #e5e7eb;
   box-shadow: none;
-  border-color: transparent;
+  border-color: #b8c7ff;
   transform: none;
 }
 
@@ -117,6 +129,11 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+.secondary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .secondary-btn:hover {
