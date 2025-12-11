@@ -845,6 +845,12 @@ h1 {
     margin-top: 4px;
   }
 
+  .form-card {
+    background: transparent;
+    border-color: #ffffff;
+    box-shadow: none;
+  }
+
   .form-card__head {
     grid-template-columns: auto 1fr;
     grid-template-areas:
