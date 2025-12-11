@@ -30,8 +30,11 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
   displayStats: number[] = [];
   private metricsObserver?: IntersectionObserver;
   private hasAnimatedMetrics = false;
+  private highlightsObserver?: IntersectionObserver;
+  highlightVisible = false;
 
   @ViewChild('metricsSection') metricsSection?: ElementRef<HTMLElement>;
+  @ViewChild('highlightsSection') highlightsSection?: ElementRef<HTMLElement>;
   renavamValue = '';
   renavamError = '';
   renavamTouched = false;
@@ -121,10 +124,25 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
 
       this.metricsObserver.observe(this.metricsSection.nativeElement);
     }
+
+    if (this.highlightsSection?.nativeElement) {
+      this.highlightsObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !this.highlightVisible) {
+            this.highlightVisible = true;
+            this.highlightsObserver?.disconnect();
+          }
+        },
+        { threshold: 0.25 }
+      );
+
+      this.highlightsObserver.observe(this.highlightsSection.nativeElement);
+    }
   }
 
   ngOnDestroy(): void {
     this.metricsObserver?.disconnect();
+    this.highlightsObserver?.disconnect();
   }
 
   toggleFaq(idx: number): void {

@@ -76,7 +76,7 @@
   </div>
 
   <div class="section highlights-section alt">
-    <div class="section-inner highlights" @staggerFadeList>
+    <div class="section-inner highlights" @staggerFadeList #highlightsSection [class.animate-highlights]="highlightVisible">
       <div class="highlight-card" *ngFor="let item of highlights" [@fadeUp]="'in'">
         <div class="highlight-icon">
           <i [class]="item.icon"></i>
