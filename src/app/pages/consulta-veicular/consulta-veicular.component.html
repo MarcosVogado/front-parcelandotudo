@@ -48,7 +48,7 @@
           </div>
           <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
-          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid" (click)="goToSelectionPage()">
+          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid" (click)="goToSelectionDebit()">
             <i class="fa-solid fa-magnifying-glass"></i>
             Consultar veículo
           </button>
@@ -168,4 +168,5 @@
     </div>
   </div>
 </section>
+
 

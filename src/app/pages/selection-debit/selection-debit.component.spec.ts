@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectionPageComponent } from './selection-page.component';
+import { SelectionDebitComponent } from './selection-debit.component';
 
-describe('SelectionPageComponent', () => {
-  let component: SelectionPageComponent;
-  let fixture: ComponentFixture<SelectionPageComponent>;
+describe('SelectionDebitComponent', () => {
+  let component: SelectionDebitComponent;
+  let fixture: ComponentFixture<SelectionDebitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SelectionPageComponent]
+      declarations: [SelectionDebitComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(SelectionPageComponent);
+    fixture = TestBed.createComponent(SelectionDebitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

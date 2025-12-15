@@ -261,7 +261,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
-  goToSelectionPage(): void {
+  goToSelectionDebit(): void {
     this.renavamTouched = true;
     this.validateRenavam();
 
@@ -270,7 +270,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
       return;
     }
 
-    this.router.navigate(['/selection-page'], {
+    this.router.navigate(['/selection-debit'], {
       queryParams: { renavam: this.renavamValue }
     });
   }
