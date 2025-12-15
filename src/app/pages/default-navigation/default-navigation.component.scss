@@ -19,6 +19,7 @@
   padding: 40px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(8px);
+  color: #f8fafc;
 }
 
 .nav-card.ant-card {
@@ -47,11 +48,12 @@
 h1 {
   margin: 0 0 12px;
   font-size: 36px;
+  color: #ffffff;
 }
 
 .lead {
   margin: 0 0 24px;
-  color: #c9d7e7;
+  color: #dbe7ff;
   font-size: 17px;
   line-height: 1.6;
 }
@@ -90,11 +92,12 @@ h1 {
   display: block;
   font-weight: 600;
   font-size: 16px;
+  color: #f8fafc;
 }
 
 .nav-link small {
   display: block;
-  color: #c3d0e2;
+  color: #dce8ff;
 }
 
 .nav-link:hover {
