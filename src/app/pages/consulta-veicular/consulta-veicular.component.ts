@@ -39,6 +39,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('renavamInput') renavamInput?: ElementRef<HTMLInputElement>;
   renavamValue = '';
   renavamError = '';
+  renavamShake = false;
   renavamTouched = false;
 
   testimonials = [
@@ -219,30 +220,42 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   private validateRenavam(): void {
+    const previousError = this.renavamError;
+
     if (!this.renavamTouched) {
       this.renavamError = '';
       return;
     }
 
+    let error = '';
+
     if (!this.renavamValue) {
-      this.renavamError = 'Informe o RENAVAM.';
-      return;
+      error = 'Informe o RENAVAM.';
+    } else if (this.renavamValue.length < 9) {
+      error = 'O RENAVAM deve ter pelo menos 9 dígitos.';
+    } else if (this.renavamValue.length > 11) {
+      error = 'O RENAVAM deve ter no máximo 11 dígitos.';
     }
 
-    if (this.renavamValue.length < 9) {
-      this.renavamError = 'O RENAVAM deve ter pelo menos 9 dígitos.';
-      return;
-    }
+    this.renavamError = error;
 
-    if (this.renavamValue.length > 11) {
-      this.renavamError = 'O RENAVAM deve ter no máximo 11 dígitos.';
-      return;
+    if (error && error !== previousError) {
+      this.triggerRenavamShake();
     }
-
-    this.renavamError = '';
   }
 
   get isRenavamValid(): boolean {
     return !this.renavamError && this.renavamValue.length >= 9 && this.renavamValue.length <= 11;
+  }
+
+  private triggerRenavamShake(): void {
+    this.renavamShake = false;
+
+    requestAnimationFrame(() => {
+      this.renavamShake = true;
+      setTimeout(() => {
+        this.renavamShake = false;
+      }, 450);
+    });
   }
 }

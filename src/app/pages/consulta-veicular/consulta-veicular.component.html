@@ -25,7 +25,7 @@
 
         <form nz-form class="renavam-form" novalidate>
           <label for="renavam">Número do RENAVAM <small>(9 a 11 dígitos)</small></label>
-          <div class="input-wrap">
+          <div class="input-wrap" [class.has-error]="renavamError" [class.shake]="renavamShake">
             <i class="fa-regular fa-clipboard"></i>
             <input
               id="renavam"
