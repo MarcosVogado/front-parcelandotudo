@@ -1,21 +1,52 @@
-// Tema NG Zorro alinhado aos tokens existentes do projeto
 @import "~ng-zorro-antd/ng-zorro-antd.less";
 
+// NG Zorro theme aligned to project tokens
 @primary-color: #2b63ff;
-@info-color: #2b63ff;
+@primary-color-hover: #1f5bff;
+@primary-color-active: #1f5bff;
+@info-color: @primary-color;
 @success-color: #22c55e;
 @warning-color: #f59e0b;
 @error-color: #ef4444;
 
 @font-family: "Inter", "Poppins", sans-serif;
-@text-color: #111827;
+@text-color: #0f172a;
 @text-color-secondary: #4b5563;
 @heading-color: #0f172a;
 
 @border-radius-base: 12px;
+@border-radius-sm: 12px;
 @border-color-base: #e5e7eb;
 @border-color-split: #e5e7eb;
+@card-radius: 16px;
 
-// Mantem sombras suaves para cards/menus coerentes com o layout atual
+@btn-border-radius-base: 12px;
+@btn-border-radius-sm: 12px;
+@btn-height-lg: 54px;
+@btn-padding-horizontal-lg: 18px;
+@btn-padding-horizontal-base: 14px;
+@btn-shadow: 0 10px 20px rgba(43, 99, 255, 0.15);
+@btn-primary-shadow: 0 12px 24px rgba(43, 99, 255, 0.2);
+
+@input-border-radius: 12px;
+@input-height-lg: 52px;
+@input-padding-horizontal: 12px;
+
+// Keep soft shadows consistent with legacy cards
 @box-shadow-base: 0 10px 24px rgba(17, 24, 39, 0.08);
 @box-shadow-secondary: 0 18px 36px rgba(17, 24, 39, 0.12);
+@card-shadow: 0 18px 36px rgba(17, 24, 39, 0.12);
+
+:root {
+  --color-primary: #2b63ff;
+  --color-primary-strong: #1f5bff;
+  --color-success: #22c55e;
+  --color-success-strong: #16a34a;
+  --color-dark: #0f172a;
+  --color-muted: #4b5563;
+  --border-soft: #e5e7eb;
+  --shadow-card: 0 18px 36px rgba(17, 24, 39, 0.12);
+  --shadow-soft: 0 10px 24px rgba(17, 24, 39, 0.08);
+  --radius-card: 16px;
+  --radius-button: 12px;
+}
