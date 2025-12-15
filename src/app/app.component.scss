@@ -1,1 +1,16 @@
-/* Estilos globais adicionais para AppComponent (se necessário) */
+.app-shell {
+  background: transparent;
+}
+
+.app-header-shell,
+.app-footer-shell {
+  padding: 0;
+  height: auto;
+  line-height: normal;
+  background: transparent;
+}
+
+.app-content-shell {
+  min-height: 100vh;
+  background: transparent;
+}

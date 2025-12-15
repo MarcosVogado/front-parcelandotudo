@@ -21,6 +21,16 @@
   backdrop-filter: blur(8px);
 }
 
+.nav-card.ant-card {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+.nav-card .ant-card-body {
+  padding: 0;
+}
+
 .eyebrow {
   display: inline-block;
   padding: 6px 12px;

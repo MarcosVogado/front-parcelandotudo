@@ -1,4 +1,15 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<nz-layout class="app-shell">
+  <nz-header class="app-header-shell">
+    <app-header></app-header>
+  </nz-header>
+
+  <nz-content class="app-content-shell">
+    <router-outlet></router-outlet>
+  </nz-content>
+
+  <nz-footer class="app-footer-shell">
+    <app-footer></app-footer>
+  </nz-footer>
+</nz-layout>
+
 <app-whatsapp-button></app-whatsapp-button>
