@@ -13,8 +13,10 @@ export class BarcodeFormComponent implements OnInit, AfterViewInit, OnDestroy {
   submitted = false;
   badgesVisible = false;
   private badgesObserver?: IntersectionObserver;
+  private focusTimeout?: number;
 
   @ViewChild('badgeSentinel', { static: true }) badgeSentinel!: ElementRef<HTMLElement>;
+  @ViewChild('barcodeInput') barcodeInput?: ElementRef<HTMLInputElement>;
 
   constructor(private fb: FormBuilder) { }
 
@@ -33,6 +35,10 @@ export class BarcodeFormComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.focusTimeout = window.setTimeout(() => {
+      this.barcodeInput?.nativeElement.focus();
+    });
+
     this.badgesObserver = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -48,6 +54,10 @@ export class BarcodeFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.badgesObserver?.disconnect();
+
+    if (this.focusTimeout) {
+      clearTimeout(this.focusTimeout);
+    }
   }
 
   consultBoleto(): void {

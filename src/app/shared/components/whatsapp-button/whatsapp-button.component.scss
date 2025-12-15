@@ -2,46 +2,73 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  /* assegura que fique acima de outros elementos */
   z-index: 1001;
   text-align: center;
 }
 
-/* Círculo verde do ícone */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .circle {
-  width: 60px;
-  height: 60px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #2fd679, #20bf60); /* verde oficial do WhatsApp */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
-  box-shadow: 0 12px 22px rgba(32, 191, 96, 0.35);
-}
-.circle i {
-  color: #FFFFFF;
-  font-size: 1.7rem;
-}
-.circle:hover {
-  transform: scale(1.1);
+  transition: transform 0.15s ease;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
 }
 
-/* Rótulo de ajuda (balão) - oculto inicialmente */
+.circle i {
+  color: #0f172a;
+  font-size: 1.35rem;
+}
+
+.circle:hover {
+  transform: translateY(-2px);
+}
+
+.actions > .circle:last-child {
+  background: #22c55e;
+  border-color: transparent;
+  box-shadow: 0 6px 14px rgba(34, 197, 94, 0.25);
+}
+
+.actions > .circle:last-child i {
+  color: #ffffff;
+}
+
+.back-to-top {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+  cursor: pointer;
+}
+
+.back-to-top i {
+  font-size: 1.1rem;
+}
+
 .help-label {
   display: none;
   position: absolute;
-  bottom: 80px; /* posicionado acima do botão */
+  bottom: 80px;
   right: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #003033;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 0.9rem;
   font-weight: 500;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  /* pequena seta triangular apontando para o botão (opcional) */
 }
+
 .help-label::after {
   content: '';
   position: absolute;
@@ -49,13 +76,11 @@
   right: 18px;
   border-width: 6px 6px 0 6px;
   border-style: solid;
-  border-color: #FFFFFF transparent;
-  /* cria um pequeno triângulo abaixo do balão */
+  border-color: #ffffff transparent;
 }
 
-/* Ajustes para mobile: manter o botão visível sem necessidade de hover */
 @media (max-width: 768px) {
   .help-label {
-    display: none; /* Ocultar rótulo em mobile (sem hover) */
+    display: none;
   }
 }

@@ -1,9 +1,19 @@
 <div class="whatsapp-button">
-  <div class="circle">
-    <a href="https://wa.me/551152398158" target="_blank" rel="noopener noreferrer">
-      <i class="fab fa-whatsapp"></i>
-    </a>
+  <div class="actions">
+    <button
+      *ngIf="showBackToTop"
+      type="button"
+      class="circle back-to-top"
+      aria-label="Voltar ao topo"
+      (click)="scrollToTop()"
+    >
+      <i class="fa-solid fa-angle-up"></i>
+    </button>
+    <div class="circle">
+      <a href="https://wa.me/551152398158" target="_blank" rel="noopener noreferrer" aria-label="Fale com a gente no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
   </div>
-  <!-- Rótulo exibido no hover -->
   <div class="help-label">Precisa de ajuda? Fale com a gente</div>
 </div>
