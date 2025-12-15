@@ -9,6 +9,10 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 @NgModule({
   exports: [
@@ -21,7 +25,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzStepsModule,
     NzStatisticModule,
     NzTagModule,
-    NzIconModule
+    NzIconModule,
+    NzLayoutModule,
+    NzMessageModule,
+    NzNotificationModule,
+    NzSpaceModule
   ]
 })
 export class ZorroModule {}
