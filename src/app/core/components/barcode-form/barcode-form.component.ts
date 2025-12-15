@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { badgeStagger } from '../../../animations';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-barcode-form',
@@ -77,8 +77,8 @@ export class BarcodeFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.barcodeControl?.markAsTouched();
   }
 
-  get barcodeControl() {
-    return this.form.get('barcode');
+  get barcodeControl(): AbstractControl {
+    return this.form.get('barcode') as AbstractControl;
   }
 
   get shouldShowErrors(): boolean {
