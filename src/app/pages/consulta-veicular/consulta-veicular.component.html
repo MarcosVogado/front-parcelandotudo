@@ -1,77 +1,60 @@
 <section class="vehicle-page">
-  <nz-row class="hero" nzAlign="middle" nzJustify="center" [nzGutter]="[24, 24]">
-    <nz-col nzXs="24" [nzFlex]="'0 1 560px'">
-      <div class="hero-text" @fadeUp>
-        <h1>
-          Consulte débitos pelo <span class="highlight">RENAVAM</span> do seu veículo
-        </h1>
-        <p class="lead">
-          Veja multas, IPVA, licenciamento e taxas em aberto de forma rápida e segura. Mesma experiência da consulta de boleto,
-          agora focada em débitos veiculares.
-        </p>
+  <div class="hero">
+    <div class="hero-text" @fadeUp>
+      <h1>
+        Consulte débitos pelo <span class="highlight">RENAVAM</span> do seu veículo
+      </h1>
+      <p class="lead">
+        Veja multas, IPVA, licenciamento e taxas em aberto de forma rápida e segura. Mesma experiência da consulta de boleto,
+        agora focada em débitos veiculares.
+      </p>
 
-      </div>
-    </nz-col>
+    </div>
 
-    <nz-col nzXs="24" [nzFlex]="'0 1 560px'">
-      <div class="form-col" @slideInRight>
-        <nz-card class="form-card" nzBordered nzHoverable [nzBodyStyle]="{ padding: 0 }">
-          <div class="form-card__head">
-            <div class="icon-wrap">
-              <i class="fa-solid fa-car-side"></i>
-            </div>
-            <div>
-              <p class="eyebrow">Consulta de RENAVAM</p>
-            </div>
-            <div class="head-chip">
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
+    <div class="form-col" @slideInRight>
+      <div class="form-card">
+        <div class="form-card__head">
+          <div class="icon-wrap">
+            <i class="fa-solid fa-car-side"></i>
           </div>
+          <div>
+            <p class="eyebrow">Consulta de RENAVAM</p>
+          </div>
+          <div class="head-chip">
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
 
-        <form nz-form nzLayout="vertical" class="renavam-form" novalidate>
-          <nz-form-item>
-            <nz-form-label [nzFor]="'renavam'">
-              Número do RENAVAM <small>(9 a 11 dígitos)</small>
-            </nz-form-label>
-            <nz-form-control [nzValidateStatus]="renavamError ? 'error' : ''">
-              <nz-input-group class="input-wrap" [nzPrefix]="renavamPrefix" [nzSuffix]="renavamSuffix">
-                <input
-                  id="renavam"
-                  nz-input
-                  name="renavam"
-                  type="text"
-                  [value]="renavamValue"
-                  (input)="onRenavamInput($event)"
-                  #renavamInput
-                  placeholder="Ex: 00123456789"
-                  inputmode="numeric"
-                  autocomplete="off"
-                />
-              </nz-input-group>
-              <ng-template #renavamPrefix>
-                <i class="fa-regular fa-clipboard"></i>
-              </ng-template>
-              <ng-template #renavamSuffix>
-                <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-                <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
-                  <i class="fa-regular fa-circle-question"></i>
-                </button>
-              </ng-template>
-              <p nz-form-explain class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
-            </nz-form-control>
-          </nz-form-item>
+        <form nz-form class="renavam-form" novalidate>
+          <label for="renavam">Número do RENAVAM <small>(9 a 11 dígitos)</small></label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-clipboard"></i>
+            <input
+              id="renavam"
+              nz-input
+              name="renavam"
+              type="text"
+              [value]="renavamValue"
+              (input)="onRenavamInput($event)"
+              #renavamInput
+              placeholder="Ex: 00123456789"
+              inputmode="numeric"
+              autocomplete="off"
+            />
+            <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
+              <i class="fa-regular fa-circle-question"></i>
+            </button>
+          </div>
+          <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
-          <nz-form-item class="submit-item">
-            <nz-form-control>
-              <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                Consultar veículo
-              </button>
-            </nz-form-control>
-          </nz-form-item>
+          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Consultar veículo
+          </button>
         </form>
 
         <div class="discoveries" @staggerFadeList>
@@ -88,10 +71,9 @@
           </div>
         </div>
 
-      </nz-card>
+      </div>
     </div>
-    </nz-col>
-  </nz-row>
+  </div>
 
   <div class="section highlights-section alt">
     <div class="section-inner highlights" @staggerFadeList #highlightsSection [class.animate-highlights]="highlightVisible">
