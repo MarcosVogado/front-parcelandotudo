@@ -163,7 +163,7 @@ h1 {
 
 .form-card__head {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 18px 20px;
@@ -189,6 +189,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  justify-self: end;
 }
 
 .head-chip .dot {
@@ -852,15 +853,27 @@ h1 {
   }
 
   .form-card__head {
-    grid-template-columns: auto 1fr;
-    grid-template-areas:
-      "icon title"
-      "chip chip";
+    grid-template-columns: 1fr auto;
+    justify-items: start;
+    text-align: left;
+    gap: 8px;
+    padding: 14px 16px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    justify-content: center;
+    background: ui.$color-primary;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    font-size: 0.9rem;
+    align-self: center;
   }
 
   .head-chip {
-    grid-area: chip;
-    justify-content: flex-start;
+    justify-content: center;
+    justify-self: end;
+    align-self: center;
   }
 
   /* Animação mobile: cards entram na visão apenas quando seção é visível */
