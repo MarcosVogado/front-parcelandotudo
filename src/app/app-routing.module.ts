@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConsultaBoletoComponent } from './pages/consulta-boleto/consulta-boleto.component';
 import { ConsultaVeicularComponent } from './pages/consulta-veicular/consulta-veicular.component';
 import { DefaultNavigationComponent } from './pages/default-navigation/default-navigation.component';
+import { SelectionPageComponent } from './pages/selection-page/selection-page.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'consulta-veicular',
     component: ConsultaVeicularComponent
+  },
+  {
+    path: 'selection-page',
+    component: SelectionPageComponent
   },
   {
     path: '**', redirectTo: ''

@@ -18,6 +18,7 @@ import { DefaultNavigationComponent } from './pages/default-navigation/default-n
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { pt_BR } from 'ng-zorro-antd/i18n';
 import { ZorroModule } from './shared/zorro.module';
+import { SelectionPageComponent } from './pages/selection-page/selection-page.component';
 
 
 registerLocaleData(localePt);
@@ -31,7 +32,8 @@ registerLocaleData(localePt);
     ConsultaBoletoComponent,
     BarcodeFormComponent,
     ConsultaVeicularComponent,
-    DefaultNavigationComponent
+    DefaultNavigationComponent,
+    SelectionPageComponent
   ],
   imports: [
     BrowserModule,

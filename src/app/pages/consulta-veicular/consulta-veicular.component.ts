@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
@@ -41,6 +42,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
   renavamError = '';
   renavamShake = false;
   renavamTouched = false;
+  constructor(private router: Router) { }
 
   testimonials = [
     {
@@ -256,6 +258,20 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
       setTimeout(() => {
         this.renavamShake = false;
       }, 450);
+    });
+  }
+
+  goToSelectionPage(): void {
+    this.renavamTouched = true;
+    this.validateRenavam();
+
+    if (!this.isRenavamValid) {
+      this.triggerRenavamShake();
+      return;
+    }
+
+    this.router.navigate(['/selection-page'], {
+      queryParams: { renavam: this.renavamValue }
     });
   }
 }
