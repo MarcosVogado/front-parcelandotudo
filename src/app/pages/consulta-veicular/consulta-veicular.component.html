@@ -26,39 +26,30 @@
           </div>
         </div>
 
-        <form nz-form nzLayout="vertical" class="renavam-form" novalidate>
-          <nz-form-item class="form-item">
-            <nz-form-label nzFor="renavam">
-              <span class="form-label">Número do RENAVAM <small>(9 a 11 dígitos)</small></span>
-            </nz-form-label>
-            <nz-form-control [nzValidateStatus]="renavamError ? 'error' : ''" [nzErrorTip]="renavamErrorTpl">
-              <div class="input-wrap">
-                <i class="fa-regular fa-clipboard"></i>
-                <input
-                  id="renavam"
-                  nz-input
-                  name="renavam"
-                  type="text"
-                  [value]="renavamValue"
-                  (input)="onRenavamInput($event)"
-                  #renavamInput
-                  placeholder="Ex: 00123456789"
-                  inputmode="numeric"
-                  autocomplete="off"
-                />
-                <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
-                  <i class="fa-solid fa-xmark"></i>
-                </button>
-                <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
-                  <i class="fa-regular fa-circle-question"></i>
-                </button>
-              </div>
-            </nz-form-control>
-          </nz-form-item>
-
-          <ng-template #renavamErrorTpl>
-            <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
-          </ng-template>
+        <form nz-form class="renavam-form" novalidate>
+          <label for="renavam">Número do RENAVAM <small>(9 a 11 dígitos)</small></label>
+          <div class="input-wrap">
+            <i class="fa-regular fa-clipboard"></i>
+            <input
+              id="renavam"
+              nz-input
+              name="renavam"
+              type="text"
+              [value]="renavamValue"
+              (input)="onRenavamInput($event)"
+              #renavamInput
+              placeholder="Ex: 00123456789"
+              inputmode="numeric"
+              autocomplete="off"
+            />
+            <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Ajuda sobre RENAVAM">
+              <i class="fa-regular fa-circle-question"></i>
+            </button>
+          </div>
+          <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
           <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid">
             <i class="fa-solid fa-magnifying-glass"></i>

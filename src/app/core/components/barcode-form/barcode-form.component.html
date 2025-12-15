@@ -1,44 +1,39 @@
-<form nz-form nzLayout="vertical" class="barcode-form" [formGroup]="form" novalidate>
-  <nz-form-item class="form-item">
-    <nz-form-label nzFor="barcodeInput">
-      <span class="form-label">Código de barras</span>
-    </nz-form-label>
-    <nz-form-control [nzValidateStatus]="shouldShowErrors ? barcodeControl : ''" [nzErrorTip]="barcodeErrors">
-      <div class="input-group" [class.invalid]="shouldShowErrors && form.get('barcode')?.invalid">
-        <input
-          id="barcodeInput"
-          nz-input
-          type="text"
-          name="barcode"
-          formControlName="barcode"
-          inputmode="numeric"
-          pattern="\d*"
-          maxlength="48"
-          (input)="onInputChange()"
-          (blur)="onBlur()"
-          placeholder="Insira aqui o código de barras do seu tributo ou taxa"
-        />
-        <i class="fa-solid fa-barcode"></i>
-      </div>
-    </nz-form-control>
-  </nz-form-item>
+<form nz-form class="barcode-form" [formGroup]="form" novalidate>
+  <div class="form-header">
+    <label for="barcodeInput">Código de barras</label>
+  </div>
 
-  <ng-template #barcodeErrors>
-    <ng-container *ngIf="shouldShowErrors && form.get('barcode')?.errors">
-      <small class="error-text" *ngIf="form.get('barcode')?.hasError('required')">
-        Informe o código de barras.
-      </small>
-      <small class="error-text" *ngIf="form.get('barcode')?.hasError('pattern')">
-        O campo aceita apenas números.
-      </small>
-      <small class="error-text" *ngIf="form.get('barcode')?.hasError('minlength')">
-        Código deve ter no mínimo 44 dígitos.
-      </small>
-      <small class="error-text" *ngIf="form.get('barcode')?.hasError('maxlength')">
-        Código deve ter no máximo 48 dígitos.
-      </small>
-    </ng-container>
-  </ng-template>
+  <div class="input-group" [class.invalid]="shouldShowErrors && form.get('barcode')?.invalid">
+    <input
+      id="barcodeInput"
+      nz-input
+      type="text"
+      name="barcode"
+      formControlName="barcode"
+      inputmode="numeric"
+      pattern="\d*"
+      maxlength="48"
+      (input)="onInputChange()"
+      (blur)="onBlur()"
+      placeholder="Insira aqui o código de barras do seu tributo ou taxa"
+    />
+    <i class="fa-solid fa-barcode"></i>
+  </div>
+
+  <ng-container *ngIf="shouldShowErrors && form.get('barcode')?.errors">
+    <small class="error-text" *ngIf="form.get('barcode')?.hasError('required')">
+      Informe o código de barras.
+    </small>
+    <small class="error-text" *ngIf="form.get('barcode')?.hasError('pattern')">
+      O campo aceita apenas números.
+    </small>
+    <small class="error-text" *ngIf="form.get('barcode')?.hasError('minlength')">
+      Código deve ter no mínimo 44 dígitos.
+    </small>
+    <small class="error-text" *ngIf="form.get('barcode')?.hasError('maxlength')">
+      Código deve ter no máximo 48 dígitos.
+    </small>
+  </ng-container>
 
   <small class="help-text">Aceitamos tributos municipais, estaduais, federais e diversas taxas.</small>
 

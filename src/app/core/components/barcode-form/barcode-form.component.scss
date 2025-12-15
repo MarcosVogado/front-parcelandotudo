@@ -8,24 +8,11 @@
   gap: 12px;
 }
 
-.barcode-form .ant-form-item {
-  margin: 0;
-}
-
-.barcode-form .ant-form-item-label {
-  padding: 0;
-}
-
-.barcode-form .ant-form-item-label > label,
-.form-label {
+.form-header label {
   display: block;
   font-weight: 700;
   color: #111827;
   font-size: 1rem;
-}
-
-.barcode-form .ant-form-item-control-input-content {
-  width: 100%;
 }
 
 .input-group {
