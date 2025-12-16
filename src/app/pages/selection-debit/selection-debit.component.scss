@@ -294,6 +294,10 @@ $bg: #f8fafc;
   transition: width 0.25s ease;
 }
 
+.input-progress span.valid {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+}
+
 .field-row {
   display: flex;
   align-items: center;

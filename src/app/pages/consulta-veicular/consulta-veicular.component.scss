@@ -221,11 +221,12 @@ h1 {
 }
 
 .input-wrap {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
+  padding: 14px 16px 18px;
   border: 1px solid #d8e3f3;
   border-radius: 12px;
   background: #f8fbff;
@@ -266,6 +267,28 @@ h1 {
 
 .input-wrap input::placeholder {
   color: #9ca3af;
+}
+
+.input-progress {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 8px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.input-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, ui.$color-primary 0%, lighten(ui.$color-primary, 10%) 100%);
+  transition: width 0.25s ease, background 0.25s ease;
+}
+
+.input-progress span.valid {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
 }
 
 .icon-btn {

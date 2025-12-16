@@ -65,7 +65,7 @@
             <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
           </div>
           <div class="input-progress">
-            <span [style.width.%]="renavamProgress"></span>
+            <span [style.width.%]="renavamProgress" [class.valid]="(renavamControl.value?.length || 0) >= 9"></span>
           </div>
         </div>
         <div class="field-row">

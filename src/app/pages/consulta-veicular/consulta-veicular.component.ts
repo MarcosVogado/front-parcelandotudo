@@ -42,6 +42,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
   renavamError = '';
   renavamShake = false;
   renavamTouched = false;
+  renavamProgress = 0;
   constructor(private router: Router) { }
 
   testimonials = [
@@ -218,6 +219,7 @@ export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestr
     this.renavamValue = digits;
     input.value = digits;
     this.renavamTouched = true;
+    this.renavamProgress = Math.min(Math.round((digits.length / 11) * 100), 100);
     this.validateRenavam();
   }
 

@@ -39,6 +39,9 @@
               inputmode="numeric"
               autocomplete="off"
             />
+            <div class="input-progress">
+              <span [style.width.%]="renavamProgress" [class.valid]="renavamValue.length >= 9"></span>
+            </div>
             <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar RENAVAM" (click)="clearRenavam(renavamInput)">
               <i class="fa-solid fa-xmark"></i>
             </button>
@@ -168,5 +171,4 @@
     </div>
   </div>
 </section>
-
 
