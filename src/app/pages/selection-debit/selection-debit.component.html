@@ -8,10 +8,6 @@
       <h1>Consulte e selecione os débitos do seu veículo</h1>
       <p class="subtitle">Validação em tempo real do RENAVAM, estados claros e fluxo enxuto até o parcelamento.</p>
     </div>
-    <button nz-button nzType="default" class="ghost-btn" (click)="clear()">
-      <i class="fa-solid fa-rotate-left"></i>
-      Nova consulta
-    </button>
   </div>
 
   <div class="flow-steps" @fadeUp>
@@ -204,7 +200,7 @@
       <div class="table-head">
         <label class="checkbox master">
           <input type="checkbox" [checked]="allSelected" (change)="toggleSelectAll($event)" aria-label="Selecionar todos os débitos" />
-          <span>{{ selectedCount }} de {{ debitos.length }} selecionados</span>
+          <span>{{ masterCheckboxLabel }}</span>
         </label>
         <div class="filters">
           <span class="filter-chip">

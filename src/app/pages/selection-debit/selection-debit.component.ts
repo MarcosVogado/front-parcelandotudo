@@ -102,6 +102,13 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
     return this.debitos.filter((d) => this.selection.has(d.id)).reduce((acc, cur) => acc + (cur.valor || 0), 0);
   }
 
+  get masterCheckboxLabel(): string {
+    if (!this.debitos.length) return 'Selecionar todos os débitos';
+    if (this.selection.size === 0) return 'Selecionar todos os débitos';
+    if (this.selection.size === this.debitos.length) return 'Todos selecionados';
+    return `${this.selection.size} de ${this.debitos.length} selecionados`;
+  }
+
   formatCurrency(value: number): string {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value || 0);
   }
