@@ -5,8 +5,8 @@
         <i class="fa-regular fa-rectangle-list"></i>
         <span>Consulta de Débitos Veiculares</span>
       </div>
-      <h1>Consulte e selecione os débitos do seu veículo para parcelar</h1>
-      <p class="subtitle">Validação em tempo real do RENAVAM, feedback claro e etapas guiadas até o parcelamento.</p>
+      <h1>Consulte e selecione os débitos do seu veículo</h1>
+      <p class="subtitle">Validação em tempo real do RENAVAM, estados claros e fluxo enxuto até o parcelamento.</p>
     </div>
     <button nz-button nzType="default" class="ghost-btn" (click)="clear()">
       <i class="fa-solid fa-rotate-left"></i>
@@ -15,21 +15,11 @@
   </div>
 
   <div class="flow-steps" @fadeUp>
-    <div
-      class="flow-step"
-      *ngFor="let step of steps; let i = index"
-      [class.active]="i === activeStep"
-      [class.done]="i < activeStep"
-    >
-      <div class="step-icon">
-        <i [class]="step.icon"></i>
-        <span class="step-index">{{ i + 1 }}</span>
-      </div>
+    <div class="flow-step" *ngFor="let step of steps; let i = index" [class.active]="i === activeStep" [class.done]="i < activeStep">
+      <div class="bullet">{{ i + 1 }}</div>
       <div class="step-text">
         <span class="step-label">{{ step.label }}</span>
-        <small>{{ step.helper }}</small>
       </div>
-      <div class="step-line" *ngIf="i < steps.length - 1"></div>
     </div>
   </div>
 
@@ -38,8 +28,7 @@
       <div class="card-head">
         <div>
           <p class="eyebrow">Consultar veículo</p>
-          <h2>Informe o RENAVAM para consultar os débitos pendentes</h2>
-          <p class="helper">Progresso no campo mostra quantos dígitos faltam. Apenas números, 9 a 11 dígitos.</p>
+          <h2>Informe o RENAVAM</h2>
         </div>
         <span class="badge info" nz-tooltip nzTooltipTitle="Dados mockados via json-server em http://localhost:3000/api">
           <i class="fa-solid fa-database"></i>
@@ -50,7 +39,7 @@
       <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
         <label for="renavam">
           Número do RENAVAM
-          <span nz-tooltip nzTooltipTitle="Encontre o RENAVAM no documento do veículo (CRLV/CRV)">
+          <span nz-tooltip nzTooltipTitle="Encontre no documento do veículo (CRLV/CRV)">
             <i class="fa-regular fa-circle-question"></i>
           </span>
         </label>
@@ -81,33 +70,21 @@
         </div>
         <div class="field-row">
           <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
-          <p class="field-hint" id="renavam-hint">Validação em tempo real e feedback visual claro.</p>
+          <p class="field-hint" id="renavam-hint">Validamos em tempo real e só habilitamos a consulta quando estiver ok.</p>
         </div>
 
         <div class="actions">
           <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
-            <i
-              class="fa-solid"
-              [class.fa-spinner]="state === 'loading'"
-              [class.spin]="state === 'loading'"
-              [class.fa-magnifying-glass]="state !== 'loading'"
-            ></i>
+            <i class="fa-solid" [class.fa-spinner]="state === 'loading'" [class.spin]="state === 'loading'" [class.fa-magnifying-glass]="state !== 'loading'"></i>
             {{ state === 'loading' ? 'Consultando...' : 'Consultar' }}
           </button>
-          <div class="action-help">
-            <i class="fa-regular fa-lightbulb"></i>
-            Feedback de sucesso/erro com toasts e inline.
-          </div>
         </div>
       </form>
     </div>
 
     <div class="card vehicle-card" *ngIf="state !== 'idle'">
       <div class="card-head">
-        <p class="eyebrow">Veículo</p>
-        <div class="status-chip" *ngIf="state === 'loaded'">
-          <span class="dot success"></span> Verificado
-        </div>
+        <p class="eyebrow">Resumo</p>
         <div class="status-chip danger" *ngIf="state === 'error'">
           <span class="dot danger"></span> Erro na consulta
         </div>
@@ -116,8 +93,6 @@
       <div *ngIf="state === 'loading'" class="skeleton vehicle-skeleton">
         <div class="skeleton-line short"></div>
         <div class="skeleton-grid">
-          <span class="skeleton-line"></span>
-          <span class="skeleton-line"></span>
           <span class="skeleton-line"></span>
           <span class="skeleton-line"></span>
         </div>
@@ -153,21 +128,6 @@
               </button>
             </div>
           </div>
-          <div class="verified">
-            <i class="fa-solid fa-circle-check"></i>
-            Verificado
-          </div>
-        </div>
-
-        <div class="info-grid">
-          <div *ngIf="vehicleSummary.protocol">
-            <p class="label">Protocolo</p>
-            <p class="value">{{ vehicleSummary.protocol }}</p>
-          </div>
-          <div *ngIf="vehicleSummary.referenceId">
-            <p class="label">Ref.</p>
-            <p class="value">{{ vehicleSummary.referenceId }}</p>
-          </div>
         </div>
 
         <div class="meta">
@@ -183,6 +143,14 @@
             <i class="fa-solid fa-wallet"></i>
             {{ formatCurrency(vehicleSummary.total) }} total
           </span>
+          <span class="badge pill" *ngIf="vehicleSummary.protocol">
+            <i class="fa-regular fa-id-card"></i>
+            Protocolo {{ vehicleSummary.protocol }}
+          </span>
+          <span class="badge pill" *ngIf="vehicleSummary.referenceId">
+            <i class="fa-regular fa-hashtag"></i>
+            Ref. {{ vehicleSummary.referenceId }}
+          </span>
         </div>
       </div>
     </div>
@@ -192,7 +160,7 @@
     <div class="card-head">
       <div>
         <p class="eyebrow">Débitos Pendentes</p>
-        <h2>Selecione os débitos que deseja parcelar</h2>
+        <h2>Selecione os débitos para parcelar</h2>
       </div>
       <div class="table-badges">
         <span class="badge info">
@@ -210,10 +178,9 @@
     </div>
 
     <div *ngIf="state === 'loading'" class="skeleton-table">
-      <div class="skeleton-row" *ngFor="let _ of [1,2,3,4,5]">
+      <div class="skeleton-row" *ngFor="let _ of [1,2,3]">
         <span class="skeleton-box checkbox"></span>
         <span class="skeleton-line wide"></span>
-        <span class="skeleton-line short"></span>
         <span class="skeleton-line short"></span>
         <span class="skeleton-line price"></span>
       </div>
@@ -240,13 +207,13 @@
           <span>{{ selectedCount }} de {{ debitos.length }} selecionados</span>
         </label>
         <div class="filters">
-          <span nz-tooltip nzTooltipTitle="Filtra por proximidade de vencimento" class="filter-chip">
+          <span class="filter-chip">
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
+            Ordenar por vencimento
+          </span>
+          <span class="filter-chip">
             <i class="fa-regular fa-clock"></i>
             Próximos 30 dias
-          </span>
-          <span nz-tooltip nzTooltipTitle="Ordenado do vencimento mais próximo" class="filter-chip">
-            <i class="fa-solid fa-arrow-down-wide-short"></i>
-            Vencimento
           </span>
         </div>
       </div>
@@ -257,7 +224,7 @@
           <div class="col descricao">Descrição do Tributo</div>
           <div class="col ano">Ano</div>
           <div class="col vencimento">Vencimento</div>
-          <div class="col valor">Total do débito</div>
+          <div class="col valor">Total</div>
         </div>
 
         <label class="table-row" *ngFor="let debito of debitos" [class.selected]="selection.has(debito.id)" @staggerFadeList>
@@ -275,10 +242,6 @@
               <span [class]="getBadgeClass(debito.status)">
                 <i class="fa-regular fa-clock"></i>
                 {{ formatStatus(debito.status) }}
-              </span>
-              <span class="badge pill light">
-                <i class="fa-solid fa-sparkles"></i>
-                Parcelável
               </span>
             </div>
           </div>
@@ -307,7 +270,7 @@
     </div>
 
     <div class="resumo-actions">
-      <button nz-button nzType="default" class="ghost-btn" (click)="selection.clear()" [disabled]="selectedCount === 0">
+      <button nz-button nzType="link" class="link-btn" (click)="selection.clear()" [disabled]="selectedCount === 0">
         Limpar seleção
       </button>
       <button
