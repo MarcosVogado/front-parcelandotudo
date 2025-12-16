@@ -160,21 +160,13 @@
         </div>
 
         <div class="info-grid">
-          <div>
-            <p class="label">Placa</p>
-            <p class="value strong">{{ vehicleSummary.placa }}</p>
+          <div *ngIf="vehicleSummary.protocol">
+            <p class="label">Protocolo</p>
+            <p class="value">{{ vehicleSummary.protocol }}</p>
           </div>
-          <div>
-            <p class="label">Modelo</p>
-            <p class="value">{{ vehicleSummary.modelo }}</p>
-          </div>
-          <div>
-            <p class="label">Ano</p>
-            <p class="value">{{ vehicleSummary.ano }}</p>
-          </div>
-          <div>
-            <p class="label">Cor</p>
-            <p class="value">{{ vehicleSummary.cor }}</p>
+          <div *ngIf="vehicleSummary.referenceId">
+            <p class="label">Ref.</p>
+            <p class="value">{{ vehicleSummary.referenceId }}</p>
           </div>
         </div>
 

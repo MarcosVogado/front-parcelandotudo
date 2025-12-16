@@ -6,7 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
-import { Debito, DebitoStatus, SelectionDebitService } from './selection-debit.service';
+import { Debito, DebitoStatus, DebitosResponse, SelectionDebitService } from './selection-debit.service';
 
 type StepKey = 'consulta' | 'selecao' | 'parcelamento' | 'confirmacao';
 
@@ -39,7 +39,7 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
 
   debitos: Debito[] = [];
   selection = new Set<string>();
-  vehicleSummary: { renavam: string; placa: string; modelo: string; cor: string; ano: number; total: number; vencidos: number; quantidade: number } | null = null;
+  vehicleSummary: (DebitosResponse & { quantidade: number }) | null = null;
 
   private sub?: Subscription;
   private copyTimeout?: number;
@@ -151,13 +151,16 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
         this.debitos = res.debitos || [];
         this.vehicleSummary = {
           renavam: res.renavam,
-          placa: res.placa || res.debitos?.[0]?.placa || '',
+          placa: res.placa,
           modelo: res.modelo,
           cor: res.cor,
           ano: res.ano,
           total: res.total,
           vencidos: res.vencidos,
-          quantidade: res.quantidade
+          quantidade: res.quantidade,
+          protocol: res.protocol,
+          referenceId: res.referenceId,
+          debitos: res.debitos
         };
         this.state = 'loaded';
         this.activeStep = 1;

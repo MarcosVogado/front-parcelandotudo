@@ -1,95 +1,40 @@
 {
-  "debitos": [
+  "debtList": [
     {
-      "id": "1",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "IPVA - Imposto sobre Propriedade de Veículos Automotores",
-      "anoDebito": 2024,
-      "vencimento": "2024-01-31",
-      "valor": 1850.45,
-      "status": "vencido"
+      "debitId": 4186,
+      "itemDescription": "AUTO INFRAÇÃO / NOTIFICAÇÃO 2025 25516244372",
+      "year": 2025,
+      "dueDate": "2025-12-16",
+      "paymentDueDate": "2025-12-16 20:00:00",
+      "total": 843.16,
+      "statusCode": "PCR",
+      "renavam": "77777777777"
     },
     {
-      "id": "2",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "IPVA - Imposto sobre Propriedade de Veículos Automotores",
-      "anoDebito": 2023,
-      "vencimento": "2023-01-31",
-      "valor": 1720.3,
-      "status": "vencido"
+      "debitId": 4187,
+      "itemDescription": "AUTO INFRAÇÃO / NOTIFICAÇÃO 2023 23514815240",
+      "year": 2023,
+      "dueDate": "2025-12-16",
+      "paymentDueDate": "2025-12-16 20:00:00",
+      "total": 722.95,
+      "statusCode": "PCR",
+      "renavam": "77777777777"
     },
     {
-      "id": "3",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "Licenciamento Anual",
-      "anoDebito": 2024,
-      "vencimento": "2024-04-30",
-      "valor": 165.78,
-      "status": "vencido"
-    },
-    {
-      "id": "4",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "Multa - Excesso de velocidade (Art. 218, II)",
-      "anoDebito": 2024,
-      "vencimento": "2024-08-15",
-      "valor": 293.47,
-      "status": "vencido"
-    },
-    {
-      "id": "5",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "Multa - Estacionamento irregular (Art. 181, XVII)",
-      "anoDebito": 2024,
-      "vencimento": "2024-10-20",
-      "valor": 195.23,
-      "status": "vencido"
-    },
-    {
-      "id": "6",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "DPVAT - Seguro Obrigatório",
-      "anoDebito": 2024,
-      "vencimento": "2025-01-31",
-      "valor": 52.6,
-      "status": "vencido"
-    },
-    {
-      "id": "7",
-      "renavam": "77777777777",
-      "placa": "ABC-1234",
-      "modelo": "Honda Civic",
-      "ano": 2021,
-      "cor": "Prata",
-      "descricao": "Taxa de Renovação de CNH",
-      "anoDebito": 2025,
-      "vencimento": "2025-06-15",
-      "valor": 306.94,
-      "status": "vencido"
+      "debitId": 4188,
+      "itemDescription": "AUTO INFRAÇÃO / NOTIFICAÇÃO 2024 24515468814",
+      "year": 2024,
+      "dueDate": "2025-12-16",
+      "paymentDueDate": "2025-12-16 20:00:00",
+      "total": 719.98,
+      "statusCode": "PCR",
+      "renavam": "77777777777"
     }
-  ]
+  ],
+  "meta": {
+    "itemCount": 3,
+    "totalAmount": 2286.09,
+    "protocol": "062265422025",
+    "referenceId": "REF-123"
+  }
 }

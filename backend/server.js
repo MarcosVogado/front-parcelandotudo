@@ -2,13 +2,13 @@ const path = require('path');
 const jsonServer = require('json-server');
 
 const server = jsonServer.create();
-const router = jsonServer.router(path.join(__dirname, 'db.json'));
+const dbFile = path.join(__dirname, 'db.json');
+const router = jsonServer.router(dbFile);
 const middlewares = jsonServer.defaults({ logger: true, cors: true });
-const routes = require('./routes.json');
 
 const DELAY_MS = 200;
 
-const computeStatus = (isoDate) => {
+const computeStatusByDate = (isoDate) => {
   const today = new Date();
   const due = new Date(isoDate);
   if (Number.isNaN(due.getTime())) return 'vencido';
@@ -18,44 +18,64 @@ const computeStatus = (isoDate) => {
   return 'a-vencer';
 };
 
+const mapStatusCode = (code) => {
+  if (!code) return 'a-vencer';
+  const c = String(code).toUpperCase();
+  if (['VENC', 'VCD', 'VENCIDO'].includes(c)) return 'vencido';
+  if (['HOJE'].includes(c)) return 'hoje';
+  // PCR e demais: a vencer
+  return 'a-vencer';
+};
+
 server.use(jsonServer.bodyParser);
 server.use((req, res, next) => setTimeout(next, DELAY_MS));
 server.use(middlewares);
-server.use(jsonServer.rewriter(routes));
-
 server.get('/api/debitos', (req, res) => {
   const renavam = (req.query.renavam || '').toString();
-  const db = router.db.get('debitos');
-  let items = db.value();
-
   if (!renavam || renavam.length < 9) {
     return res.status(400).json({ message: 'RENAVAM inválido.' });
   }
 
-  items = items.filter((d) => d.renavam === renavam);
+  const state = router.db.getState();
+  const all = Array.isArray(state.debtList) ? state.debtList : [];
+  const meta = state.meta || {};
+  const filtered = all.filter((item) => !item.renavam || String(item.renavam) === renavam);
 
-  if (!items.length) {
+  if (!filtered.length) {
     return res.status(404).json({ message: 'Nenhum débito encontrado para este RENAVAM.' });
   }
 
-  const sorted = items
-    .map((d) => ({ ...d, status: computeStatus(d.vencimento) }))
-    .sort((a, b) => new Date(a.vencimento) - new Date(b.vencimento));
+  const mapped = filtered.map((d) => ({
+    debitId: d.debitId,
+    itemDescription: d.itemDescription,
+    year: d.year,
+    dueDate: d.dueDate,
+    paymentDueDate: d.paymentDueDate,
+    total: d.total,
+    statusCode: d.statusCode,
+    status: mapStatusCode(d.statusCode) || computeStatusByDate(d.dueDate),
+    renavam: d.renavam || renavam,
+    plate: d.plate,
+    model: d.model,
+    vehicleYear: d.vehicleYear,
+    color: d.color
+  }));
 
-  const total = sorted.reduce((acc, cur) => acc + (cur.valor || 0), 0);
-  const vencidos = sorted.filter((d) => d.status === 'vencido').length;
-  const vehicle = sorted[0];
+  const totalAmount = meta.totalAmount ?? mapped.reduce((acc, cur) => acc + (cur.total || 0), 0);
+  const vencidos = mapped.filter((d) => d.status === 'vencido').length;
+  const first = mapped[0];
 
   return res.json({
-    renavam: vehicle.renavam,
-    placa: vehicle.placa,
-    modelo: vehicle.modelo,
-    cor: vehicle.cor,
-    ano: vehicle.ano,
-    quantidade: sorted.length,
-    total,
-    vencidos,
-    debitos: sorted
+    debtList: mapped,
+    itemCount: meta.itemCount ?? mapped.length,
+    totalAmount,
+    protocol: meta.protocol || 'PROTO-MOCK',
+    referenceId: meta.referenceId || 'REF-MOCK',
+    plate: first?.plate || '',
+    model: first?.model || '',
+    vehicleYear: first?.vehicleYear || new Date().getFullYear(),
+    color: first?.color || '',
+    renavam
   });
 });
 
