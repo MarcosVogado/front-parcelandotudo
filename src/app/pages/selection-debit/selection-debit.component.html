@@ -1,3 +1,333 @@
 <section class="selection-debit">
-  <!-- Página em branco para redirecionamento após consulta do RENAVAM -->
+  <div class="page-head" @fadeUp>
+    <div>
+      <div class="title-chip">
+        <i class="fa-regular fa-rectangle-list"></i>
+        <span>Consulta de Débitos Veiculares</span>
+      </div>
+      <h1>Consulte e selecione os débitos do seu veículo para parcelar</h1>
+      <p class="subtitle">Validação em tempo real do RENAVAM, feedback claro e etapas guiadas até o parcelamento.</p>
+    </div>
+    <button nz-button nzType="default" class="ghost-btn" (click)="clear()">
+      <i class="fa-solid fa-rotate-left"></i>
+      Nova consulta
+    </button>
+  </div>
+
+  <div class="flow-steps" @fadeUp>
+    <div
+      class="flow-step"
+      *ngFor="let step of steps; let i = index"
+      [class.active]="i === activeStep"
+      [class.done]="i < activeStep"
+    >
+      <div class="step-icon">
+        <i [class]="step.icon"></i>
+        <span class="step-index">{{ i + 1 }}</span>
+      </div>
+      <div class="step-text">
+        <span class="step-label">{{ step.label }}</span>
+        <small>{{ step.helper }}</small>
+      </div>
+      <div class="step-line" *ngIf="i < steps.length - 1"></div>
+    </div>
+  </div>
+
+  <div class="grid" @slideInRight>
+    <div class="card consulta-card">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow">Consultar veículo</p>
+          <h2>Informe o RENAVAM para consultar os débitos pendentes</h2>
+          <p class="helper">Progresso no campo mostra quantos dígitos faltam. Apenas números, 9 a 11 dígitos.</p>
+        </div>
+        <span class="badge info" nz-tooltip nzTooltipTitle="Dados mockados via json-server em http://localhost:3000/api">
+          <i class="fa-solid fa-database"></i>
+          Mock ativo
+        </span>
+      </div>
+
+      <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
+        <label for="renavam">
+          Número do RENAVAM
+          <span nz-tooltip nzTooltipTitle="Encontre o RENAVAM no documento do veículo (CRLV/CRV)">
+            <i class="fa-regular fa-circle-question"></i>
+          </span>
+        </label>
+        <div class="input-wrap" [class.invalid]="renavamControl.invalid && renavamControl.touched">
+          <i class="fa-regular fa-clipboard"></i>
+          <input
+            nz-input
+            id="renavam"
+            type="text"
+            formControlName="renavam"
+            (input)="onRenavamInput($event)"
+            #renavamInput
+            placeholder="Ex: 77777777777"
+            inputmode="numeric"
+            autocomplete="off"
+            aria-describedby="renavam-hint"
+            [attr.aria-invalid]="renavamControl.invalid"
+          />
+          <div class="input-actions">
+            <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Limpar RENAVAM" (click)="clear()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
+          </div>
+          <div class="input-progress">
+            <span [style.width.%]="renavamProgress"></span>
+          </div>
+        </div>
+        <div class="field-row">
+          <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
+          <p class="field-hint" id="renavam-hint">Validação em tempo real e feedback visual claro.</p>
+        </div>
+
+        <div class="actions">
+          <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
+            <i
+              class="fa-solid"
+              [class.fa-spinner]="state === 'loading'"
+              [class.spin]="state === 'loading'"
+              [class.fa-magnifying-glass]="state !== 'loading'"
+            ></i>
+            {{ state === 'loading' ? 'Consultando...' : 'Consultar' }}
+          </button>
+          <div class="action-help">
+            <i class="fa-regular fa-lightbulb"></i>
+            Feedback de sucesso/erro com toasts e inline.
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="card vehicle-card" *ngIf="state !== 'idle'">
+      <div class="card-head">
+        <p class="eyebrow">Veículo</p>
+        <div class="status-chip" *ngIf="state === 'loaded'">
+          <span class="dot success"></span> Verificado
+        </div>
+        <div class="status-chip danger" *ngIf="state === 'error'">
+          <span class="dot danger"></span> Erro na consulta
+        </div>
+      </div>
+
+      <div *ngIf="state === 'loading'" class="skeleton vehicle-skeleton">
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-grid">
+          <span class="skeleton-line"></span>
+          <span class="skeleton-line"></span>
+          <span class="skeleton-line"></span>
+          <span class="skeleton-line"></span>
+        </div>
+      </div>
+
+      <div *ngIf="state === 'error'" class="error-box">
+        <div>
+          <h3>Não conseguimos consultar agora</h3>
+          <p>{{ consultaError }}</p>
+        </div>
+        <div class="error-actions">
+          <button nz-button nzType="default" (click)="retry()">Tentar novamente</button>
+          <button nz-button nzType="link" (click)="clear()">Limpar e reiniciar</button>
+        </div>
+      </div>
+
+      <div *ngIf="state === 'loaded' && vehicleSummary" class="vehicle-summary" @fadeUp>
+        <div class="summary-row">
+          <div>
+            <p class="label">RENAVAM</p>
+            <div class="value renavam">
+              {{ vehicleSummary.renavam }}
+              <button
+                nz-button
+                nzType="text"
+                class="copy-btn"
+                (click)="copyRenavam()"
+                nz-tooltip
+                [nzTooltipTitle]="copyTooltip"
+                aria-label="Copiar RENAVAM"
+              >
+                <i class="fa-regular fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <div class="verified">
+            <i class="fa-solid fa-circle-check"></i>
+            Verificado
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div>
+            <p class="label">Placa</p>
+            <p class="value strong">{{ vehicleSummary.placa }}</p>
+          </div>
+          <div>
+            <p class="label">Modelo</p>
+            <p class="value">{{ vehicleSummary.modelo }}</p>
+          </div>
+          <div>
+            <p class="label">Ano</p>
+            <p class="value">{{ vehicleSummary.ano }}</p>
+          </div>
+          <div>
+            <p class="label">Cor</p>
+            <p class="value">{{ vehicleSummary.cor }}</p>
+          </div>
+        </div>
+
+        <div class="meta">
+          <span class="badge pill">
+            <i class="fa-regular fa-rectangle-list"></i>
+            {{ vehicleSummary.quantidade }} débitos
+          </span>
+          <span class="badge pill danger" *ngIf="vehicleSummary.vencidos > 0">
+            <i class="fa-regular fa-clock"></i>
+            {{ vehicleSummary.vencidos }} vencidos
+          </span>
+          <span class="badge pill success">
+            <i class="fa-solid fa-wallet"></i>
+            {{ formatCurrency(vehicleSummary.total) }} total
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card debitos-card" *ngIf="state !== 'idle'">
+    <div class="card-head">
+      <div>
+        <p class="eyebrow">Débitos Pendentes</p>
+        <h2>Selecione os débitos que deseja parcelar</h2>
+      </div>
+      <div class="table-badges">
+        <span class="badge info">
+          <i class="fa-regular fa-circle"></i>
+          {{ debitos.length }} débitos
+        </span>
+        <span class="badge danger" *ngIf="vehicleSummary?.vencidos">
+          <i class="fa-regular fa-clock"></i>
+          {{ vehicleSummary?.vencidos }} vencidos
+        </span>
+        <span class="badge dark" *ngIf="vehicleSummary">
+          Total: {{ formatCurrency(vehicleSummary.total) }}
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="state === 'loading'" class="skeleton-table">
+      <div class="skeleton-row" *ngFor="let _ of [1,2,3,4,5]">
+        <span class="skeleton-box checkbox"></span>
+        <span class="skeleton-line wide"></span>
+        <span class="skeleton-line short"></span>
+        <span class="skeleton-line short"></span>
+        <span class="skeleton-line price"></span>
+      </div>
+    </div>
+
+    <div *ngIf="state === 'error'" class="error-box inline">
+      <div>
+        <h3>Erro ao carregar débitos</h3>
+        <p>{{ consultaError }}</p>
+      </div>
+      <button nz-button nzType="primary" (click)="retry()">Tentar novamente</button>
+    </div>
+
+    <div *ngIf="state === 'loaded' && debitos.length === 0" class="empty-state" @fadeUp>
+      <i class="fa-regular fa-folder-open"></i>
+      <p>Nenhum débito encontrado para este RENAVAM.</p>
+      <button nz-button nzType="default" (click)="clear()">Nova consulta</button>
+    </div>
+
+    <div class="table-wrapper" *ngIf="state === 'loaded' && debitos.length">
+      <div class="table-head">
+        <label class="checkbox master">
+          <input type="checkbox" [checked]="allSelected" (change)="toggleSelectAll($event)" aria-label="Selecionar todos os débitos" />
+          <span>{{ selectedCount }} de {{ debitos.length }} selecionados</span>
+        </label>
+        <div class="filters">
+          <span nz-tooltip nzTooltipTitle="Filtra por proximidade de vencimento" class="filter-chip">
+            <i class="fa-regular fa-clock"></i>
+            Próximos 30 dias
+          </span>
+          <span nz-tooltip nzTooltipTitle="Ordenado do vencimento mais próximo" class="filter-chip">
+            <i class="fa-solid fa-arrow-down-wide-short"></i>
+            Vencimento
+          </span>
+        </div>
+      </div>
+
+      <div class="table">
+        <div class="table-row head">
+          <div class="col checkbox"></div>
+          <div class="col descricao">Descrição do Tributo</div>
+          <div class="col ano">Ano</div>
+          <div class="col vencimento">Vencimento</div>
+          <div class="col valor">Total do débito</div>
+        </div>
+
+        <label class="table-row" *ngFor="let debito of debitos" [class.selected]="selection.has(debito.id)" @staggerFadeList>
+          <div class="col checkbox">
+            <input
+              type="checkbox"
+              [checked]="selection.has(debito.id)"
+              (change)="toggleItem($event, debito.id)"
+              [attr.aria-label]="'Selecionar ' + debito.descricao"
+            />
+          </div>
+          <div class="col descricao">
+            <div class="desc">{{ debito.descricao }}</div>
+            <div class="badges">
+              <span [class]="getBadgeClass(debito.status)">
+                <i class="fa-regular fa-clock"></i>
+                {{ formatStatus(debito.status) }}
+              </span>
+              <span class="badge pill light">
+                <i class="fa-solid fa-sparkles"></i>
+                Parcelável
+              </span>
+            </div>
+          </div>
+          <div class="col ano">{{ debito.anoDebito }}</div>
+          <div class="col vencimento">{{ formatDate(debito.vencimento) }}</div>
+          <div class="col valor">{{ formatCurrency(debito.valor) }}</div>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="resumo-bar"
+    [class.visible]="state !== 'idle'"
+    [class.has-selection]="selectedCount > 0"
+    @slideInRight
+  >
+    <div class="resumo-info">
+      <div class="icon">
+        <i class="fa-regular fa-credit-card"></i>
+      </div>
+      <div>
+        <p class="label">{{ selectedCount }} débito{{ selectedCount !== 1 ? 's' : '' }} selecionado{{ selectedCount !== 1 ? 's' : '' }}</p>
+        <p class="total">{{ formatCurrency(selectedTotal) }} <span>valor total</span></p>
+      </div>
+    </div>
+
+    <div class="resumo-actions">
+      <button nz-button nzType="default" class="ghost-btn" (click)="selection.clear()" [disabled]="selectedCount === 0">
+        Limpar seleção
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        class="primary-btn"
+        [disabled]="selectedCount === 0 || parcelando"
+        (click)="parcelar()"
+      >
+        <i class="fa-solid" [class.fa-spinner]="parcelando" [class.spin]="parcelando" [class.fa-rocket]="!parcelando"></i>
+        {{ parcelando ? 'Enviando...' : 'Prosseguir para Parcelamento' }}
+      </button>
+    </div>
+  </div>
 </section>

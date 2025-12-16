@@ -13,6 +13,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
   exports: [
@@ -29,7 +30,8 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
     NzLayoutModule,
     NzMessageModule,
     NzNotificationModule,
-    NzSpaceModule
+    NzSpaceModule,
+    NzToolTipModule
   ]
 })
 export class ZorroModule {}
