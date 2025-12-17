@@ -10,9 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './core/components/header/header.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button.component';
-import { ConsultaBoletoComponent } from './pages/consulta-boleto/consulta-boleto.component';
+import { BillLookupComponent } from './pages/bill-lookup/bill-lookup.component';
 import { BarcodeFormComponent } from './core/components/barcode-form/barcode-form.component';
-import { ConsultaVeicularComponent } from './pages/consulta-veicular/consulta-veicular.component';
+import { VehicleDebtLookupComponent } from './pages/vehicle-debt-lookup/vehicle-debt-lookup.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { DefaultNavigationComponent } from './pages/default-navigation/default-navigation.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -29,9 +29,9 @@ registerLocaleData(localePt);
     HeaderComponent,
     FooterComponent,
     WhatsappButtonComponent,
-    ConsultaBoletoComponent,
+    BillLookupComponent,
     BarcodeFormComponent,
-    ConsultaVeicularComponent,
+    VehicleDebtLookupComponent,
     DefaultNavigationComponent,
     SelectionDebitComponent
   ],
@@ -51,4 +51,3 @@ registerLocaleData(localePt);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

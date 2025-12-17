@@ -2,9 +2,9 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { fadeUp, revealOnScroll, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
-  selector: 'app-consulta-boleto',
-  templateUrl: './consulta-boleto.component.html',
-  styleUrls: ['./consulta-boleto.component.scss'],
+  selector: 'app-bill-lookup',
+  templateUrl: './bill-lookup.component.html',
+  styleUrls: ['./bill-lookup.component.scss'],
   animations: [
     fadeUp,
     slideInRight,
@@ -12,7 +12,7 @@ import { fadeUp, revealOnScroll, slideInRight, staggerFadeList } from '../../ani
     revealOnScroll,
   ]
 })
-export class ConsultaBoletoComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BillLookupComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedAmount = 0;
   private targetAmount = 20000000;
   private animationDuration = 2000; // ms

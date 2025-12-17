@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { fadeUp, slideInRight, staggerFadeList } from '../../animations';
 
 @Component({
-  selector: 'app-consulta-veicular',
-  templateUrl: './consulta-veicular.component.html',
-  styleUrls: ['./consulta-veicular.component.scss'],
+  selector: 'app-vehicle-debt-lookup',
+  templateUrl: './vehicle-debt-lookup.component.html',
+  styleUrls: ['./vehicle-debt-lookup.component.scss'],
   animations: [fadeUp, slideInRight, staggerFadeList]
 })
-export class ConsultaVeicularComponent implements OnInit, AfterViewInit, OnDestroy {
+export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDestroy {
   discoveries = [
     { icon: 'fa-solid fa-ticket', label: 'Multas', detail: 'Pendentes e em aberto' },
     { icon: 'fa-solid fa-receipt', label: 'Débitos IPVA', detail: 'Inclui anos em aberto' },
