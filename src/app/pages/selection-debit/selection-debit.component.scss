@@ -34,21 +34,6 @@ $bg: ui.$color-soft;
   margin-bottom: 10px;
 }
 
-.title-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba($primary, 0.12);
-  color: $primary-strong;
-  font-weight: 700;
-}
-
-.page-head h1 {
-  margin: 0;
-}
-
 .hero-title {
   display: inline-flex;
   flex-direction: column;
@@ -390,8 +375,6 @@ $bg: ui.$color-soft;
   height: 14px;
   border-radius: 8px;
   background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s ease infinite;
 }
 
 .vehicle-skeleton .skeleton-line.short {
@@ -487,8 +470,6 @@ $bg: ui.$color-soft;
   height: 12px;
   border-radius: 8px;
   background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.2s ease infinite;
 }
 
 .skeleton-line.short {
@@ -508,7 +489,8 @@ $bg: ui.$color-soft;
   margin-top: 12px;
   border: 1px solid $card-border;
   border-radius: 14px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .table-head {
@@ -608,14 +590,6 @@ $bg: ui.$color-soft;
   transition: background 0.18s ease, border-color 0.18s ease;
 }
 
-.table > label.table-row:hover {
-  background: rgba($primary, 0.05);
-}
-
-.table > label.table-row:nth-of-type(even) {
-  background: rgba($dark, 0.012);
-}
-
 .table-row:last-child {
   border-bottom: none;
 }
@@ -653,6 +627,10 @@ $bg: ui.$color-soft;
 .desc {
   font-weight: 700;
   color: $dark;
+}
+
+.row-meta {
+  display: contents;
 }
 
 .badges {
@@ -851,25 +829,19 @@ $bg: ui.$color-soft;
   background: #fff;
   border: 1px solid $card-border;
   border-radius: 14px;
-  box-shadow: 0 -10px 24px rgba(15, 23, 42, 0.06);
   padding: 10px 14px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  transform: translateY(24px);
-  opacity: 0;
-  transition: transform 0.25s ease, opacity 0.25s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .resumo-bar.visible {
-  transform: translateY(0);
-  opacity: 1;
+  display: flex;
 }
 
 .resumo-bar.has-selection {
   border-color: $primary-strong;
-  box-shadow: 0 -12px 28px rgba($primary, 0.14);
 }
 
 .resumo-info {
@@ -886,7 +858,6 @@ $bg: ui.$color-soft;
   color: $primary-strong;
   display: grid;
   place-items: center;
-  font-size: 1.1rem;
 }
 
 .resumo-info .label {
@@ -898,12 +869,6 @@ $bg: ui.$color-soft;
   margin: 0;
   font-weight: 800;
   font-size: 1.2rem;
-}
-
-.resumo-info .total span {
-  color: $muted;
-  font-weight: 600;
-  font-size: 0.92rem;
 }
 
 .resumo-actions {
@@ -930,20 +895,6 @@ $bg: ui.$color-soft;
   color: $muted;
 }
 
-.table-wrapper,
-.resumo-bar {
-  overflow-x: auto;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -963,13 +914,20 @@ $bg: ui.$color-soft;
     grid-template-columns: 1fr;
   }
 
+  .debitos-shell.has-side {
+    grid-template-columns: 1fr;
+  }
+
   .side-resumo {
     display: none;
   }
 
-  .table-row,
   .skeleton-row {
     grid-template-columns: 42px 2fr 0.7fr 1fr;
+  }
+
+  .table-row {
+    grid-template-columns: 42px 2.2fr 0.6fr 0.9fr 0.9fr;
   }
 
   .table-row .col.valor {
@@ -984,6 +942,39 @@ $bg: ui.$color-soft;
 
   .flow-steps {
     grid-template-columns: 1fr;
+  }
+
+  .flow-step .step-helper {
+    display: none;
+  }
+
+  .table-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .bulk-actions {
+    flex-direction: column;
+  }
+
+  .mini-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-row.head {
+    display: none;
+  }
+
+  .debitos-card .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .debitos-card .table-badges {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .table-row {
@@ -1002,13 +993,44 @@ $bg: ui.$color-soft;
     grid-area: descricao;
   }
 
-  .table-row .col.ano,
-  .table-row .col.vencimento,
-  .table-row .col.valor {
+  .row-meta {
     grid-area: meta;
-    display: inline-block;
-    margin-right: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+
+  .row-meta .col.ano,
+  .row-meta .col.vencimento,
+  .row-meta .col.valor {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .row-meta .col.ano::before,
+  .row-meta .col.vencimento::before,
+  .row-meta .col.valor::before {
+    content: attr(data-label) ': ';
+    color: $muted;
     font-weight: 700;
+  }
+
+  .group-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .group-meta {
+    font-size: 0.95rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 
   .resumo-bar {
