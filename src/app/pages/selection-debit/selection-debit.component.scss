@@ -655,6 +655,10 @@ $bg: ui.$color-soft;
   color: $dark;
 }
 
+.row-meta {
+  display: contents;
+}
+
 .badges {
   display: flex;
   gap: 6px;
@@ -963,13 +967,20 @@ $bg: ui.$color-soft;
     grid-template-columns: 1fr;
   }
 
+  .debitos-shell.has-side {
+    grid-template-columns: 1fr;
+  }
+
   .side-resumo {
     display: none;
   }
 
-  .table-row,
   .skeleton-row {
     grid-template-columns: 42px 2fr 0.7fr 1fr;
+  }
+
+  .table-row {
+    grid-template-columns: 42px 2.2fr 0.6fr 0.9fr 0.9fr;
   }
 
   .table-row .col.valor {
@@ -984,6 +995,39 @@ $bg: ui.$color-soft;
 
   .flow-steps {
     grid-template-columns: 1fr;
+  }
+
+  .flow-step .step-helper {
+    display: none;
+  }
+
+  .table-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .bulk-actions {
+    flex-direction: column;
+  }
+
+  .mini-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .table-row.head {
+    display: none;
+  }
+
+  .debitos-card .card-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .debitos-card .table-badges {
+    width: 100%;
+    justify-content: flex-start;
   }
 
   .table-row {
@@ -1002,13 +1046,44 @@ $bg: ui.$color-soft;
     grid-area: descricao;
   }
 
-  .table-row .col.ano,
-  .table-row .col.vencimento,
-  .table-row .col.valor {
+  .row-meta {
     grid-area: meta;
-    display: inline-block;
-    margin-right: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: center;
+  }
+
+  .row-meta .col.ano,
+  .row-meta .col.vencimento,
+  .row-meta .col.valor {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .row-meta .col.ano::before,
+  .row-meta .col.vencimento::before,
+  .row-meta .col.valor::before {
+    content: attr(data-label) ': ';
+    color: $muted;
     font-weight: 700;
+  }
+
+  .group-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .group-meta {
+    font-size: 0.95rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
 
   .resumo-bar {
