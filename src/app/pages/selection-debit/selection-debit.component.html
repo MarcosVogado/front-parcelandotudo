@@ -1,23 +1,34 @@
 <section class="selection-debit">
-  <div class="page-head" @fadeUp>
+  <div class="page-head" [class.compact]="state !== 'idle'" @fadeUp>
     <div>
-      <div class="title-chip">
-        <i class="fa-regular fa-rectangle-list"></i>
-        <span>Consulta de Débitos Veiculares</span>
-      </div>
       <h1 class="hero-title">
         <span>Regularize os débitos do seu veículo em poucos passos</span>
-        <span class="accent">Consulta em tempo real, resumo claro e sem burocracia</span>
+        <span class="accent" *ngIf="state === 'idle'">Consulta em tempo real, resumo claro e sem burocracia</span>
       </h1>
-      <p class="subtitle">Veja o status do RENAVAM ao vivo, escolha o que quer pagar e siga para parcelamento de forma segura.</p>
+      <p class="subtitle" *ngIf="state === 'idle'">
+        Veja o status do RENAVAM ao vivo, escolha o que quer pagar e siga para parcelamento de forma segura.
+      </p>
     </div>
   </div>
 
   <div class="flow-steps" @fadeUp>
-    <div class="flow-step" *ngFor="let step of steps; let i = index" [class.active]="i === activeStep" [class.done]="i < activeStep">
-      <div class="bullet">{{ i + 1 }}</div>
+    <div
+      class="flow-step"
+      *ngFor="let step of steps; let i = index"
+      [class.active]="i === activeStep"
+      [class.done]="i < activeStep"
+      [attr.aria-current]="i === activeStep ? 'step' : null"
+    >
+      <div class="bullet">
+        <i class="fa-solid fa-check" *ngIf="i < activeStep"></i>
+        <span *ngIf="i >= activeStep">{{ i + 1 }}</span>
+      </div>
       <div class="step-text">
-        <span class="step-label">{{ step.label }}</span>
+        <span class="step-label">
+          <i [class]="step.icon"></i>
+          {{ step.label }}
+        </span>
+        <span class="step-helper">{{ step.helper }}</span>
       </div>
     </div>
   </div>
@@ -29,52 +40,81 @@
           <p class="eyebrow">Consultar veículo</p>
           <h2>Informe o RENAVAM</h2>
         </div>
-      </div>
-
-      <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
-        <label for="renavam">
-          Número do RENAVAM
-          <span nz-tooltip nzTooltipTitle="Encontre no documento do veículo (CRLV/CRV)">
-            <i class="fa-regular fa-circle-question"></i>
-          </span>
-        </label>
-        <div class="input-wrap" [class.invalid]="renavamControl.invalid && renavamControl.touched">
-          <i class="fa-regular fa-clipboard"></i>
-          <input
-            nz-input
-            id="renavam"
-            type="text"
-            formControlName="renavam"
-            (input)="onRenavamInput($event)"
-            #renavamInput
-            placeholder="Ex: 77777777777"
-            inputmode="numeric"
-            autocomplete="off"
-            aria-describedby="renavam-hint"
-            [attr.aria-invalid]="renavamControl.invalid"
-          />
-          <div class="input-actions">
-            <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Limpar RENAVAM" (click)="clear()">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-            <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
-          </div>
-          <div class="input-progress">
-            <span [style.width.%]="renavamProgress" [class.valid]="(renavamControl.value?.length || 0) >= 9"></span>
-          </div>
-        </div>
-        <div class="field-row">
-          <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
-          <p class="field-hint" id="renavam-hint">Validamos em tempo real e só habilitamos a consulta quando estiver ok.</p>
-        </div>
-
-        <div class="actions">
-          <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
-            <i class="fa-solid" [class.fa-spinner]="state === 'loading'" [class.spin]="state === 'loading'" [class.fa-magnifying-glass]="state !== 'loading'"></i>
-            {{ state === 'loading' ? 'Consultando...' : 'Consultar' }}
+        <div class="head-actions" *ngIf="state !== 'idle'">
+          <button
+            type="button"
+            nz-button
+            nzType="default"
+            class="ghost-btn"
+            (click)="toggleConsultaExpanded(true)"
+            [attr.aria-expanded]="consultaExpanded"
+          >
+            <i class="fa-regular fa-pen-to-square"></i>
+            Alterar RENAVAM
           </button>
         </div>
-      </form>
+      </div>
+
+      <ng-container *ngIf="consultaExpanded; else consultaCollapsed">
+        <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
+          <label for="renavam">
+            Número do RENAVAM
+            <span nz-tooltip nzTooltipTitle="Encontre no documento do veículo (CRLV/CRV)">
+              <i class="fa-regular fa-circle-question"></i>
+            </span>
+          </label>
+          <div class="input-wrap" [class.invalid]="renavamControl.invalid && renavamControl.touched">
+            <i class="fa-regular fa-clipboard"></i>
+            <input
+              nz-input
+              id="renavam"
+              type="text"
+              formControlName="renavam"
+              (input)="onRenavamInput($event)"
+              #renavamInput
+              placeholder="Ex: 77777777777"
+              inputmode="numeric"
+              autocomplete="off"
+              aria-describedby="renavam-hint"
+              [attr.aria-invalid]="renavamControl.invalid"
+            />
+            <div class="input-actions">
+              <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Limpar RENAVAM" (click)="clear()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+              <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
+            </div>
+            <div class="input-progress">
+              <span [style.width.%]="renavamProgress" [class.valid]="(renavamControl.value?.length || 0) >= 9"></span>
+            </div>
+          </div>
+          <div class="field-row">
+            <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
+            <p class="field-hint" id="renavam-hint">Validamos em tempo real e só habilitamos a consulta quando estiver ok.</p>
+          </div>
+
+          <div class="actions">
+            <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
+              <i
+                class="fa-solid"
+                [class.fa-spinner]="state === 'loading'"
+                [class.spin]="state === 'loading'"
+                [class.fa-magnifying-glass]="state !== 'loading'"
+              ></i>
+              {{ state === 'loading' ? 'Consultando...' : 'Consultar' }}
+            </button>
+          </div>
+        </form>
+      </ng-container>
+
+      <ng-template #consultaCollapsed>
+        <div class="consulta-collapsed">
+          <div class="collapsed-item">
+            <p class="label">RENAVAM</p>
+            <p class="value">{{ renavamControl.value }}</p>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <div class="card vehicle-card" *ngIf="state !== 'idle'">
@@ -125,6 +165,25 @@
           </div>
         </div>
 
+        <div class="summary-grid">
+          <div class="summary-item" *ngIf="vehicleSummary.placa">
+            <p class="label">Placa</p>
+            <div class="value">{{ vehicleSummary.placa }}</div>
+          </div>
+          <div class="summary-item" *ngIf="vehicleSummary.modelo">
+            <p class="label">Modelo</p>
+            <div class="value">{{ vehicleSummary.modelo }}</div>
+          </div>
+          <div class="summary-item" *ngIf="vehicleSummary.ano">
+            <p class="label">Ano</p>
+            <div class="value">{{ vehicleSummary.ano }}</div>
+          </div>
+          <div class="summary-item" *ngIf="vehicleSummary.cor">
+            <p class="label">Cor</p>
+            <div class="value">{{ vehicleSummary.cor }}</div>
+          </div>
+        </div>
+
         <div class="meta">
           <span class="badge pill">
             <i class="fa-regular fa-rectangle-list"></i>
@@ -147,101 +206,214 @@
     </div>
   </div>
 
-  <div class="card debitos-card" *ngIf="state !== 'idle'">
-    <div class="card-head">
-      <div>
-        <p class="eyebrow">Débitos Pendentes</p>
-        <h2>Selecione os débitos para parcelar</h2>
-      </div>
-      <div class="table-badges">
-        <span class="badge info">
-          <i class="fa-regular fa-circle"></i>
-          {{ debitos.length }} débitos
-        </span>
-        <span class="badge danger" *ngIf="vehicleSummary?.vencidos">
-          <i class="fa-regular fa-clock"></i>
-          {{ vehicleSummary?.vencidos }} vencidos
-        </span>
-        <span class="badge dark" *ngIf="vehicleSummary">
-          Total: {{ formatCurrency(vehicleSummary.total) }}
-        </span>
-      </div>
-    </div>
-
-    <div *ngIf="state === 'loading'" class="skeleton-table">
-      <div class="skeleton-row" *ngFor="let _ of [1,2,3]">
-        <span class="skeleton-box checkbox"></span>
-        <span class="skeleton-line wide"></span>
-        <span class="skeleton-line short"></span>
-        <span class="skeleton-line price"></span>
-      </div>
-    </div>
-
-    <div *ngIf="state === 'error'" class="error-box inline">
-      <div>
-        <h3>Erro ao carregar débitos</h3>
-        <p>{{ consultaError }}</p>
-      </div>
-      <button nz-button nzType="primary" (click)="retry()">Tentar novamente</button>
-    </div>
-
-    <div *ngIf="state === 'loaded' && debitos.length === 0" class="empty-state" @fadeUp>
-      <i class="fa-regular fa-folder-open"></i>
-      <p>Nenhum débito encontrado para este RENAVAM.</p>
-      <button nz-button nzType="default" (click)="clear()">Nova consulta</button>
-    </div>
-
-    <div class="table-wrapper" *ngIf="state === 'loaded' && debitos.length">
-      <div class="table-head">
-        <label class="checkbox master">
-          <input type="checkbox" [checked]="allSelected" (change)="toggleSelectAll($event)" aria-label="Selecionar todos os débitos" />
-          <span>{{ masterCheckboxLabel }}</span>
-        </label>
-        <div class="filters">
-          <span class="filter-chip">
-            <i class="fa-solid fa-arrow-down-wide-short"></i>
-            Ordenar por vencimento
+  <div class="debitos-shell" *ngIf="state !== 'idle'" [class.has-side]="state === 'loaded' && debitos.length">
+    <div class="card debitos-card">
+      <div class="card-head">
+        <div>
+          <p class="eyebrow">Débitos Pendentes</p>
+          <h2>Selecione os débitos para parcelar</h2>
+        </div>
+        <div class="table-badges">
+          <span class="badge info">
+            <i class="fa-regular fa-circle"></i>
+            {{ debitos.length }} débitos
           </span>
-          <span class="filter-chip">
+          <span class="badge danger" *ngIf="vehicleSummary?.vencidos">
             <i class="fa-regular fa-clock"></i>
-            Próximos 30 dias
+            {{ vehicleSummary?.vencidos }} vencidos
+          </span>
+          <span class="badge dark" *ngIf="vehicleSummary">
+            Total: {{ formatCurrency(vehicleSummary.total) }}
           </span>
         </div>
       </div>
 
-      <div class="table">
-        <div class="table-row head">
-          <div class="col checkbox"></div>
-          <div class="col descricao">Descrição do Tributo</div>
-          <div class="col ano">Ano</div>
-          <div class="col vencimento">Vencimento</div>
-          <div class="col valor">Total</div>
+      <div *ngIf="state === 'loading'" class="skeleton-table">
+        <div class="skeleton-row" *ngFor="let _ of [1,2,3]">
+          <span class="skeleton-box checkbox"></span>
+          <span class="skeleton-line wide"></span>
+          <span class="skeleton-line short"></span>
+          <span class="skeleton-line price"></span>
+        </div>
+      </div>
+
+      <div *ngIf="state === 'error'" class="error-box inline">
+        <div>
+          <h3>Erro ao carregar débitos</h3>
+          <p>{{ consultaError }}</p>
+        </div>
+        <button nz-button nzType="primary" (click)="retry()">Tentar novamente</button>
+      </div>
+
+      <div *ngIf="state === 'loaded' && debitos.length === 0" class="empty-state" @fadeUp>
+        <i class="fa-regular fa-folder-open"></i>
+        <p>Nenhum débito encontrado para este RENAVAM.</p>
+        <button nz-button nzType="default" (click)="clear()">Nova consulta</button>
+      </div>
+
+      <div class="table-wrapper" *ngIf="state === 'loaded' && debitos.length">
+        <div class="table-head">
+          <label class="checkbox master">
+            <input type="checkbox" [checked]="allSelected" (change)="toggleSelectAll($event)" aria-label="Selecionar todos os débitos" />
+            <span>{{ masterCheckboxLabel }}</span>
+          </label>
+          <div class="filters">
+            <button
+              type="button"
+              class="filter-chip"
+              (click)="toggleSortByVencimento()"
+              [attr.aria-label]="'Ordenar por vencimento (' + sortDirectionLabel + ')'"
+            >
+              <i class="fa-solid fa-arrow-down-wide-short"></i>
+              Vencimento
+              <span class="chip-meta">{{ sortDirectionLabel }}</span>
+            </button>
+            <button type="button" class="filter-chip" [class.active]="groupByYear" (click)="groupByYear = !groupByYear">
+              <i class="fa-solid fa-layer-group"></i>
+              Agrupar por ano
+            </button>
+          </div>
         </div>
 
-        <label class="table-row" *ngFor="let debito of debitos" [class.selected]="selection.has(debito.id)" @staggerFadeList>
-          <div class="col checkbox">
-            <input
-              type="checkbox"
-              [checked]="selection.has(debito.id)"
-              (change)="toggleItem($event, debito.id)"
-              [attr.aria-label]="'Selecionar ' + debito.descricao"
-            />
+        <div class="bulk-actions">
+          <button type="button" class="mini-btn" (click)="selectOnlyStatus('vencido')" [disabled]="!debitos.length">
+            Somente vencidos
+          </button>
+          <button type="button" class="mini-btn" (click)="selectOnlyUpcoming()" [disabled]="!debitos.length">
+            Somente a vencer
+          </button>
+        </div>
+
+        <div class="table">
+          <div class="table-row head">
+            <div class="col checkbox"></div>
+            <div class="col descricao">Descrição do Tributo</div>
+            <div class="col ano">Ano</div>
+            <div class="col vencimento">Vencimento</div>
+            <div class="col valor">Total</div>
           </div>
-          <div class="col descricao">
-            <div class="desc">{{ debito.descricao }}</div>
-            <div class="badges">
-              <span [class]="getBadgeClass(debito.status)">
-                <i class="fa-regular fa-clock"></i>
-                {{ formatStatus(debito.status) }}
-              </span>
-            </div>
-          </div>
-          <div class="col ano">{{ debito.anoDebito }}</div>
-          <div class="col vencimento">{{ formatDate(debito.vencimento) }}</div>
-          <div class="col valor">{{ formatCurrency(debito.valor) }}</div>
-        </label>
+
+          <ng-container *ngIf="groupByYear; else flatRows">
+            <ng-container *ngFor="let group of groupedDebitos; trackBy: trackByGroupYear">
+              <div class="group-row">
+                <div class="group-title">
+                  {{ group.year }}
+                  <span class="group-chip danger" *ngIf="group.vencidos > 0">{{ group.vencidos }} vencidos</span>
+                </div>
+                <div class="group-meta">
+                  {{ group.count }} débitos • {{ formatCurrency(group.total) }}
+                </div>
+              </div>
+
+              <label
+                class="table-row"
+                *ngFor="let debito of group.items; trackBy: trackByDebitoId"
+                [class.selected]="selection.has(debito.id)"
+                @staggerFadeList
+              >
+                <div class="col checkbox">
+                  <input
+                    type="checkbox"
+                    [checked]="selection.has(debito.id)"
+                    (change)="toggleItem($event, debito.id)"
+                    [attr.aria-label]="'Selecionar ' + debito.descricao"
+                  />
+                </div>
+                <div class="col descricao">
+                  <div class="desc">{{ debito.descricao }}</div>
+                  <div class="badges">
+                    <span [class]="getBadgeClass(debito.status)">
+                      <i class="fa-regular fa-clock"></i>
+                      {{ formatStatus(debito.status) }}
+                    </span>
+                  </div>
+                </div>
+                <div class="col ano">{{ debito.anoDebito }}</div>
+                <div class="col vencimento" [class.danger]="debito.status === 'vencido'" [class.warning]="debito.status === 'hoje'">
+                  {{ formatDate(debito.vencimento) }}
+                </div>
+                <div class="col valor">{{ formatCurrency(debito.valor) }}</div>
+              </label>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #flatRows>
+            <label
+              class="table-row"
+              *ngFor="let debito of viewDebitos; trackBy: trackByDebitoId"
+              [class.selected]="selection.has(debito.id)"
+              @staggerFadeList
+            >
+              <div class="col checkbox">
+                <input
+                  type="checkbox"
+                  [checked]="selection.has(debito.id)"
+                  (change)="toggleItem($event, debito.id)"
+                  [attr.aria-label]="'Selecionar ' + debito.descricao"
+                />
+              </div>
+              <div class="col descricao">
+                <div class="desc">{{ debito.descricao }}</div>
+                <div class="badges">
+                  <span [class]="getBadgeClass(debito.status)">
+                    <i class="fa-regular fa-clock"></i>
+                    {{ formatStatus(debito.status) }}
+                  </span>
+                </div>
+              </div>
+              <div class="col ano">{{ debito.anoDebito }}</div>
+              <div class="col vencimento" [class.danger]="debito.status === 'vencido'" [class.warning]="debito.status === 'hoje'">
+                {{ formatDate(debito.vencimento) }}
+              </div>
+              <div class="col valor">{{ formatCurrency(debito.valor) }}</div>
+            </label>
+          </ng-template>
+        </div>
       </div>
     </div>
+
+    <aside class="side-resumo" *ngIf="state === 'loaded' && debitos.length" @slideInRight>
+      <div class="resumo-info">
+        <div class="icon">
+          <i class="fa-regular fa-credit-card"></i>
+        </div>
+        <div>
+          <p class="label">Resumo da seleção</p>
+          <p class="total">{{ formatCurrency(selectedTotal) }} <span>total</span></p>
+        </div>
+      </div>
+
+      <div class="side-stats">
+        <div class="stat">
+          <span class="k">Selecionados</span>
+          <span class="v">{{ selectedCount }}</span>
+        </div>
+        <div class="stat">
+          <span class="k">Vencidos</span>
+          <span class="v danger">{{ selectedVencidosCount }}</span>
+        </div>
+        <div class="stat">
+          <span class="k">A vencer</span>
+          <span class="v">{{ selectedUpcomingCount }}</span>
+        </div>
+      </div>
+
+      <div class="resumo-actions side-actions">
+        <button nz-button nzType="default" class="ghost-btn" type="button" (click)="selection.clear()" [disabled]="selectedCount === 0">
+          Limpar seleção
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          class="primary-btn"
+          [disabled]="selectedCount === 0 || parcelando"
+          (click)="parcelar()"
+        >
+          <i class="fa-solid" [class.fa-spinner]="parcelando" [class.spin]="parcelando" [class.fa-rocket]="!parcelando"></i>
+          {{ parcelando ? 'Enviando...' : 'Prosseguir' }}
+        </button>
+      </div>
+    </aside>
   </div>
 
   <div

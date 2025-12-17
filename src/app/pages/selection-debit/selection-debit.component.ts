@@ -36,6 +36,10 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
   consultaError = '';
   copyTooltip = 'Copiar RENAVAM';
   renavamProgress = 0;
+  consultaExpanded = true;
+
+  sortDirection: 'asc' | 'desc' = 'asc';
+  groupByYear = false;
 
   debitos: Debito[] = [];
   selection = new Set<string>();
@@ -102,11 +106,55 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
     return this.debitos.filter((d) => this.selection.has(d.id)).reduce((acc, cur) => acc + (cur.valor || 0), 0);
   }
 
+  get selectedVencidosCount(): number {
+    return this.debitos.filter((d) => d.status === 'vencido' && this.selection.has(d.id)).length;
+  }
+
+  get selectedUpcomingCount(): number {
+    return this.debitos.filter((d) => (d.status === 'a-vencer' || d.status === 'hoje') && this.selection.has(d.id)).length;
+  }
+
+  get sortDirectionLabel(): string {
+    return this.sortDirection === 'asc' ? 'crescente' : 'decrescente';
+  }
+
   get masterCheckboxLabel(): string {
     if (!this.debitos.length) return 'Selecionar todos os débitos';
     if (this.selection.size === 0) return 'Selecionar todos os débitos';
     if (this.selection.size === this.debitos.length) return 'Todos selecionados';
     return `${this.selection.size} de ${this.debitos.length} selecionados`;
+  }
+
+  get viewDebitos(): Debito[] {
+    const items = [...this.debitos];
+    const dir = this.sortDirection === 'asc' ? 1 : -1;
+    items.sort((a, b) => {
+      const da = new Date(a.vencimento).getTime();
+      const db = new Date(b.vencimento).getTime();
+      const va = Number.isNaN(da) ? 0 : da;
+      const vb = Number.isNaN(db) ? 0 : db;
+      if (va !== vb) return (va - vb) * dir;
+      return a.descricao.localeCompare(b.descricao) * dir;
+    });
+    return items;
+  }
+
+  get groupedDebitos(): { year: number; items: Debito[]; count: number; total: number; vencidos: number }[] {
+    const groups = new Map<number, Debito[]>();
+    for (const d of this.viewDebitos) {
+      const year = d.anoDebito ?? new Date().getFullYear();
+      const current = groups.get(year) ?? [];
+      current.push(d);
+      groups.set(year, current);
+    }
+
+    const years = Array.from(groups.keys()).sort((a, b) => b - a);
+    return years.map((year) => {
+      const items = groups.get(year) ?? [];
+      const total = items.reduce((acc, cur) => acc + (cur.valor || 0), 0);
+      const vencidos = items.filter((d) => d.status === 'vencido').length;
+      return { year, items, count: items.length, total, vencidos };
+    });
   }
 
   formatCurrency(value: number): string {
@@ -152,6 +200,7 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
     this.selection.clear();
     this.vehicleSummary = null;
     this.activeStep = 0;
+    this.consultaExpanded = true;
 
     this.service.getDebitos(this.renavamControl.value).subscribe({
       next: (res) => {
@@ -171,11 +220,13 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
         };
         this.state = 'loaded';
         this.activeStep = 1;
+        this.consultaExpanded = false;
         this.message.success('Débitos carregados com sucesso.');
       },
       error: (err) => {
         this.state = 'error';
         this.consultaError = err?.error?.message || 'Não foi possível consultar agora.';
+        this.consultaExpanded = true;
         this.message.error(this.consultaError);
       }
     });
@@ -193,6 +244,7 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
     this.state = 'idle';
     this.activeStep = 0;
     this.renavamProgress = 0;
+    this.consultaExpanded = true;
   }
 
   toggleSelectAll(event: Event): void {
@@ -211,6 +263,45 @@ export class SelectionDebitComponent implements OnInit, AfterViewInit, OnDestroy
     } else {
       this.selection.delete(id);
     }
+  }
+
+  toggleConsultaExpanded(force?: boolean): void {
+    this.consultaExpanded = typeof force === 'boolean' ? force : !this.consultaExpanded;
+    if (this.consultaExpanded) {
+      window.setTimeout(() => this.renavamInput?.nativeElement.focus(), 150);
+    }
+  }
+
+  toggleSortByVencimento(): void {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+  }
+
+  selectOnlyStatus(status: DebitoStatus): void {
+    this.selection.clear();
+    this.debitos.filter((d) => d.status === status).forEach((d) => this.selection.add(d.id));
+  }
+
+  selectOnlyUpcoming(): void {
+    this.selection.clear();
+    this.debitos.filter((d) => d.status === 'a-vencer' || d.status === 'hoje').forEach((d) => this.selection.add(d.id));
+  }
+
+  invertSelection(): void {
+    const next = new Set<string>();
+    this.debitos.forEach((d) => {
+      if (!this.selection.has(d.id)) {
+        next.add(d.id);
+      }
+    });
+    this.selection = next;
+  }
+
+  trackByDebitoId(_: number, item: Debito): string {
+    return item.id;
+  }
+
+  trackByGroupYear(_: number, item: { year: number }): number {
+    return item.year;
   }
 
   parcelar(): void {
