@@ -5,8 +5,11 @@
         <i class="fa-regular fa-rectangle-list"></i>
         <span>Consulta de Débitos Veiculares</span>
       </div>
-      <h1>Consulte e selecione os débitos do seu veículo</h1>
-      <p class="subtitle">Validação em tempo real do RENAVAM, estados claros e fluxo enxuto até o parcelamento.</p>
+      <h1 class="hero-title">
+        <span>Regularize os débitos do seu veículo em poucos passos</span>
+        <span class="accent">Consulta em tempo real, resumo claro e sem burocracia</span>
+      </h1>
+      <p class="subtitle">Veja o status do RENAVAM ao vivo, escolha o que quer pagar e siga para parcelamento de forma segura.</p>
     </div>
   </div>
 
@@ -26,10 +29,6 @@
           <p class="eyebrow">Consultar veículo</p>
           <h2>Informe o RENAVAM</h2>
         </div>
-        <span class="badge info" nz-tooltip nzTooltipTitle="Dados mockados via json-server em http://localhost:3000/api">
-          <i class="fa-solid fa-database"></i>
-          Mock ativo
-        </span>
       </div>
 
       <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
@@ -142,10 +141,6 @@
           <span class="badge pill" *ngIf="vehicleSummary.protocol">
             <i class="fa-regular fa-id-card"></i>
             Protocolo {{ vehicleSummary.protocol }}
-          </span>
-          <span class="badge pill" *ngIf="vehicleSummary.referenceId">
-            <i class="fa-regular fa-hashtag"></i>
-            Ref. {{ vehicleSummary.referenceId }}
           </span>
         </div>
       </div>

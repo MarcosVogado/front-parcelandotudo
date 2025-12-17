@@ -43,10 +43,31 @@ $bg: #f8fafc;
 }
 
 .page-head h1 {
+  margin: 0;
+}
+
+.hero-title {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
   margin: 10px 0 6px;
-  font-size: 1.9rem;
-  line-height: 1.25;
+  font-size: 2.15rem;
+  line-height: 1.2;
+  font-weight: 800;
   color: $dark;
+}
+
+.hero-title .accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: $blue-700;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba($blue-700, 0.1) 0%, rgba($blue-600, 0.08) 100%);
+  border: 1px solid rgba($blue-700, 0.12);
+  width: fit-content;
 }
 
 .subtitle {
