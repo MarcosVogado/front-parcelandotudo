@@ -10,6 +10,52 @@ $success: ui.$color-success-strong;
 $card-border: ui.$border-soft;
 $bg: ui.$color-soft;
 
+@mixin flex-row($gap: 10px, $align: center, $justify: flex-start) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin inline-flex($gap: 8px, $align: center, $justify: flex-start) {
+  display: inline-flex;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin grid-cols($cols, $gap: 10px) {
+  display: grid;
+  grid-template-columns: $cols;
+  gap: $gap;
+}
+
+@mixin card-surface {
+  background: #fff;
+  border: 1px solid $card-border;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+@mixin skeleton-bg {
+  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+}
+
+%chip-base {
+  @include inline-flex(6px);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+$badge-variants: (
+  info: (bg: rgba($primary, 0.12), color: $primary-strong),
+  danger: (bg: rgba($danger, 0.1), color: $danger),
+  warning: (bg: rgba($warning, 0.12), color: $warning),
+  success: (bg: rgba($success, 0.12), color: $success),
+  dark: (bg: $dark, color: #fff)
+);
+
 :host {
   display: block;
   color: $dark;
@@ -23,10 +69,7 @@ $bg: ui.$color-soft;
 }
 
 .page-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+  @include flex-row(12px, flex-start, space-between);
   margin-bottom: 16px;
 }
 
@@ -71,15 +114,11 @@ $bg: ui.$color-soft;
   border-radius: 12px;
   border: 1px solid $card-border;
   height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  @include inline-flex();
 }
 
 .flow-steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+  @include grid-cols(repeat(4, minmax(0, 1fr)), 10px);
   margin-top: 8px;
 }
 
@@ -110,9 +149,7 @@ $bg: ui.$color-soft;
 }
 
 .flow-step .step-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  @include inline-flex(8px);
   font-weight: 600;
   color: $muted;
 }
@@ -155,18 +192,12 @@ $bg: ui.$color-soft;
 }
 
 .card {
-  background: #fff;
-  border: 1px solid $card-border;
-  border-radius: 14px;
+  @include card-surface;
   padding: 16px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 .card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  @include flex-row(10px, center, space-between);
   margin-bottom: 8px;
 }
 
@@ -185,51 +216,28 @@ $bg: ui.$color-soft;
 }
 
 .badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 0.92rem;
+  @extend %chip-base;
   border: 1px solid transparent;
+  font-size: 0.92rem;
+
+  &.pill {
+    border-radius: 999px;
+    background: rgba($dark, 0.03);
+    color: $dark;
+    border-color: $card-border;
+  }
 }
 
-.badge.info {
-  background: rgba($primary, 0.12);
-  color: $primary-strong;
-}
-
-.badge.danger {
-  background: rgba($danger, 0.08);
-  color: $danger;
-}
-
-.badge.success {
-  background: rgba($success, 0.08);
-  color: $success;
-}
-
-.badge.dark {
-  background: $dark;
-  color: #fff;
-}
-
-.badge.pill {
-  border-radius: 999px;
-  background: rgba($dark, 0.03);
-  color: $dark;
-  border-color: $card-border;
+@each $variant, $props in $badge-variants {
+  .badge.#{$variant} {
+    background: map-get($props, bg);
+    color: map-get($props, color);
+  }
 }
 
 
 .status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-weight: 700;
+  @extend %chip-base;
   color: $success;
   background: rgba($success, 0.1);
 }
@@ -258,9 +266,7 @@ $bg: ui.$color-soft;
 .renavam-form label {
   font-weight: 700;
   color: $dark;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @include flex-row(6px);
 }
 
 .input-wrap {
@@ -288,9 +294,7 @@ $bg: ui.$color-soft;
 }
 
 .input-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  @include inline-flex(6px);
 }
 
 .icon-btn {
@@ -374,7 +378,7 @@ $bg: ui.$color-soft;
   display: block;
   height: 14px;
   border-radius: 8px;
-  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  @include skeleton-bg;
 }
 
 .vehicle-skeleton .skeleton-line.short {
@@ -389,10 +393,7 @@ $bg: ui.$color-soft;
 }
 
 .vehicle-summary .summary-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  @include flex-row(8px, center, space-between);
 }
 
 .vehicle-summary .label {
@@ -409,9 +410,7 @@ $bg: ui.$color-soft;
 }
 
 .vehicle-summary .value.renavam {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  @include inline-flex(8px);
 }
 
 .copy-btn {
@@ -420,8 +419,7 @@ $bg: ui.$color-soft;
 
 
 .meta {
-  display: flex;
-  gap: 8px;
+  @include flex-row(8px);
   flex-wrap: wrap;
 }
 
@@ -442,9 +440,7 @@ $bg: ui.$color-soft;
 }
 
 .table-badges {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  @include flex-row(8px);
   flex-wrap: wrap;
 }
 
@@ -469,7 +465,7 @@ $bg: ui.$color-soft;
   display: block;
   height: 12px;
   border-radius: 8px;
-  background: linear-gradient(90deg, #e5e7eb 0%, #f3f4f6 50%, #e5e7eb 100%);
+  @include skeleton-bg;
 }
 
 .skeleton-line.short {
@@ -494,17 +490,14 @@ $bg: ui.$color-soft;
 }
 
 .table-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-row(0, center, space-between);
   background: #f8fafc;
   padding: 10px 12px;
   border-bottom: 1px solid $card-border;
 }
 
 .table-head .filters {
-  display: flex;
-  gap: 8px;
+  @include flex-row(8px);
   flex-wrap: wrap;
 }
 
@@ -536,8 +529,7 @@ $bg: ui.$color-soft;
 
 
 .bulk-actions {
-  display: flex;
-  gap: 8px;
+  @include flex-row(8px);
   flex-wrap: wrap;
   padding: 10px 12px;
   border-bottom: 1px solid $card-border;
@@ -545,9 +537,7 @@ $bg: ui.$color-soft;
 }
 
 .mini-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  @include inline-flex(8px);
   height: 34px;
   padding: 0 10px;
   border-radius: 10px;
@@ -570,9 +560,7 @@ $bg: ui.$color-soft;
 }
 
 .checkbox {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  @include inline-flex(8px);
   font-weight: 600;
 }
 
@@ -640,29 +628,12 @@ $bg: ui.$color-soft;
   margin-top: 4px;
 }
 
-.badge.danger {
-  background: rgba($danger, 0.1);
-}
-
-.badge.warning {
-  background: rgba($warning, 0.12);
-  color: $warning;
-}
-
-.badge.success {
-  background: rgba($success, 0.12);
-  color: $success;
-}
-
 .error-box {
   border: 1px solid rgba($danger, 0.2);
   background: rgba($danger, 0.05);
   border-radius: 12px;
   padding: 12px 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
+  @include flex-row(12px, center, space-between);
 }
 
 .error-box.inline {
@@ -670,8 +641,7 @@ $bg: ui.$color-soft;
 }
 
 .error-actions {
-  display: flex;
-  gap: 10px;
+  @include flex-row(10px);
 }
 
 .empty-state {
@@ -726,19 +696,14 @@ $bg: ui.$color-soft;
 }
 
 .group-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  @include flex-row(10px, center, space-between);
   padding: 10px 12px;
   border-bottom: 1px solid $card-border;
   background: #f8fafc;
 }
 
 .group-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  @include inline-flex(10px);
   font-weight: 800;
   color: $dark;
 }
@@ -768,10 +733,7 @@ $bg: ui.$color-soft;
   top: 90px;
   max-height: calc(100vh - 110px);
   overflow: auto;
-  background: #fff;
-  border: 1px solid $card-border;
-  border-radius: 14px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  @include card-surface;
   padding: 14px;
 }
 
@@ -787,10 +749,7 @@ $bg: ui.$color-soft;
 }
 
 .side-stats .stat {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  @include flex-row(10px, center, space-between);
 }
 
 .side-stats .k {
@@ -820,6 +779,7 @@ $bg: ui.$color-soft;
 }
 
 .resumo-bar {
+  @include flex-row(10px, center, space-between);
   position: sticky;
   bottom: 0;
   left: 0;
@@ -831,9 +791,6 @@ $bg: ui.$color-soft;
   border-radius: 14px;
   padding: 10px 14px;
   display: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
 }
 
 .resumo-bar.visible {
@@ -845,9 +802,7 @@ $bg: ui.$color-soft;
 }
 
 .resumo-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  @include flex-row(10px);
 }
 
 .resumo-info .icon {
@@ -872,10 +827,8 @@ $bg: ui.$color-soft;
 }
 
 .resumo-actions {
-  display: flex;
-  gap: 8px;
+  @include flex-row(8px);
   flex-wrap: wrap;
-  align-items: center;
 }
 
 .primary-btn {
