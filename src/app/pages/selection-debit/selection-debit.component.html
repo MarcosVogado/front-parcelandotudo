@@ -421,7 +421,13 @@
           (click)="parcelar()"
         >
           <i class="fa-solid" [class.fa-spinner]="parcelando" [class.spin]="parcelando" [class.fa-rocket]="!parcelando"></i>
-          {{ parcelando ? 'Enviando...' : 'Prosseguir' }}
+          {{
+            parcelando
+              ? 'Enviando...'
+              : selectedCount === 0
+                ? 'Selecione debitos'
+                : 'Prosseguir'
+          }}
         </button>
       </div>
     </aside>
@@ -455,7 +461,13 @@
         (click)="parcelar()"
       >
         <i class="fa-solid" [class.fa-spinner]="parcelando" [class.spin]="parcelando" [class.fa-rocket]="!parcelando"></i>
-        {{ parcelando ? 'Enviando...' : 'Prosseguir para Parcelamento' }}
+        {{
+          parcelando
+            ? 'Enviando...'
+            : selectedCount === 0
+              ? 'Selecione debitos'
+              : 'Prosseguir para parcelamento'
+        }}
       </button>
     </div>
   </div>
