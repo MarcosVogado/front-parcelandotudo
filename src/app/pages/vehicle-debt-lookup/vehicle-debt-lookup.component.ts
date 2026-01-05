@@ -106,7 +106,8 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
     { question: 'As informações são atualizadas?', answer: 'Sim, consultamos bases oficiais (Denatran/Serpro/Detran) em tempo real.' },
     { question: 'A consulta é gratuita?', answer: 'A verificação de débitos é gratuita; você só paga se optar por quitar/parcelar.' },
     { question: 'É seguro fazer pagamentos pelo site?', answer: 'Usamos ambiente seguro, criptografia e não armazenamos o RENAVAM.' },
-    { question: 'Posso parcelar multas e IPVA atrasado?', answer: 'Sim, após a consulta você pode parcelar multas, IPVA e taxas pendentes.' }
+    { question: 'Posso parcelar multas e IPVA atrasado?', answer: 'Sim, após a consulta você pode parcelar multas, IPVA e taxas pendentes.' },
+    { question: 'Onde posso acompanhar o status da minha transação?', answer: 'Basta inserir o protocolo da sua transação em nossa página de consulta, Link: <a href="https://i-parcelandotudo.universalpay.com.br/#/consulta-protocolo" target="_blank" rel="noopener noreferrer">Consulte seu Protocolo</a>' }
   ];
 
   openFaqIndex: number | null = 0;
