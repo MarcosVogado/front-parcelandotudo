@@ -43,6 +43,10 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
   renavamShake = false;
   renavamTouched = false;
   renavamProgress = 0;
+  emailValue = '';
+  emailError = '';
+  emailShake = false;
+  emailTouched = false;
   constructor(private router: Router) { }
 
   testimonials = [
@@ -169,6 +173,24 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
     this.renavamValue = '';
     this.renavamTouched = false;
     this.renavamError = '';
+    this.emailValue = '';
+    this.emailTouched = false;
+    this.emailError = '';
+    this.emailShake = false;
+  }
+
+  clearEmail(input: HTMLInputElement): void {
+    input.value = '';
+    this.emailValue = '';
+    this.emailTouched = false;
+    this.emailError = '';
+  }
+
+  onEmailInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.emailValue = (input.value || '').trim();
+    this.emailTouched = true;
+    this.validateEmail();
   }
 
   getFormattedStat(index: number): string {
@@ -249,8 +271,46 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
     }
   }
 
+  private validateEmail(): void {
+    const previousError = this.emailError;
+
+    if (!this.emailTouched) {
+      this.emailError = '';
+      return;
+    }
+
+    let error = '';
+
+    if (this.emailValue && !this.isEmailFormatValid(this.emailValue)) {
+      error = 'Digite um e-mail valido.';
+    }
+
+    this.emailError = error;
+
+    if (error && error !== previousError) {
+      this.triggerEmailShake();
+    }
+  }
+
   get isRenavamValid(): boolean {
     return !this.renavamError && this.renavamValue.length >= 9 && this.renavamValue.length <= 11;
+  }
+
+  get isEmailValid(): boolean {
+    if (!this.emailValue) {
+      return true;
+    }
+
+    return this.isEmailFormatValid(this.emailValue);
+  }
+
+  get shouldShowEmailField(): boolean {
+    return this.renavamValue.length >= 9 && !this.renavamError;
+  }
+
+  private isEmailFormatValid(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   }
 
   private triggerRenavamShake(): void {
@@ -264,6 +324,17 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
     });
   }
 
+  private triggerEmailShake(): void {
+    this.emailShake = false;
+
+    requestAnimationFrame(() => {
+      this.emailShake = true;
+      setTimeout(() => {
+        this.emailShake = false;
+      }, 450);
+    });
+  }
+
   goToSelectionDebit(): void {
     this.renavamTouched = true;
     this.validateRenavam();
@@ -273,8 +344,24 @@ export class VehicleDebtLookupComponent implements OnInit, AfterViewInit, OnDest
       return;
     }
 
+    if (this.emailValue) {
+      this.emailTouched = true;
+      this.validateEmail();
+
+      if (!this.isEmailValid) {
+        this.triggerEmailShake();
+        return;
+      }
+    }
+
+    const queryParams: Record<string, string> = { renavam: this.renavamValue };
+
+    if (this.emailValue) {
+      queryParams['email'] = this.emailValue;
+    }
+
     this.router.navigate(['/selection-debit'], {
-      queryParams: { renavam: this.renavamValue }
+      queryParams
     });
   }
 }
