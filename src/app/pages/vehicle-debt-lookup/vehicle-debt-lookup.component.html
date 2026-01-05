@@ -164,7 +164,7 @@
             <i class="fa-solid" [class.fa-chevron-up]="openFaqIndex === i" [class.fa-chevron-down]="openFaqIndex !== i"></i>
           </div>
           <div class="faq-answer" *ngIf="openFaqIndex === i">
-            <p>{{ faq.answer }}</p>
+            <p [innerHTML]="faq.answer"></p>
           </div>
         </div>
       </div>
