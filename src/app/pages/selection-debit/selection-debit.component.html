@@ -33,177 +33,126 @@
     </div>
   </div>
 
-  <div class="grid" @slideInRight>
-    <div class="card consulta-card">
-      <div class="card-head">
-        <div>
-          <p class="eyebrow">Consultar veículo</p>
-          <h2>Informe o RENAVAM</h2>
-        </div>
-        <div class="head-actions" *ngIf="state !== 'idle'">
-          <button
-            type="button"
-            nz-button
-            nzType="default"
-            class="ghost-btn"
-            (click)="toggleConsultaExpanded(true)"
-            [attr.aria-expanded]="consultaExpanded"
-          >
-            <i class="fa-regular fa-pen-to-square"></i>
-            Alterar RENAVAM
-          </button>
-        </div>
-      </div>
-
-      <ng-container *ngIf="consultaExpanded; else consultaCollapsed">
-        <form nz-form [formGroup]="form" (ngSubmit)="submitConsulta()" class="renavam-form" novalidate>
-          <label for="renavam">
-            Número do RENAVAM
-            <span nz-tooltip nzTooltipTitle="Encontre no documento do veículo (CRLV/CRV)">
-              <i class="fa-regular fa-circle-question"></i>
-            </span>
-          </label>
-          <div class="input-wrap" [class.invalid]="renavamControl.invalid && renavamControl.touched">
-            <i class="fa-regular fa-clipboard"></i>
-            <input
-              nz-input
-              id="renavam"
-              type="text"
-              formControlName="renavam"
-              (input)="onRenavamInput($event)"
-              #renavamInput
-              placeholder="Ex: 77777777777"
-              inputmode="numeric"
-              autocomplete="off"
-              aria-describedby="renavam-hint"
-              [attr.aria-invalid]="renavamControl.invalid"
-            />
-            <div class="input-actions">
-              <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Limpar RENAVAM" (click)="clear()">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-              <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
-            </div>
-            <div class="input-progress">
-              <span [style.width.%]="renavamProgress" [class.valid]="(renavamControl.value?.length || 0) >= 9"></span>
-            </div>
-          </div>
-          <div class="field-row">
-            <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
-            <p class="field-hint" id="renavam-hint">Validamos em tempo real e só habilitamos a consulta quando estiver ok.</p>
-          </div>
-
-          <div class="actions">
-            <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
-              <i
-                class="fa-solid"
-                [class.fa-spinner]="state === 'loading'"
-                [class.spin]="state === 'loading'"
-                [class.fa-magnifying-glass]="state !== 'loading'"
-              ></i>
-              {{ state === 'loading' ? 'Consultando...' : 'Consultar' }}
+  <div class="consulta-inline" @slideInRight>
+    <div class="consulta-bar" [class.loaded]="state !== 'idle'">
+      <div class="bar-info">
+        <p class="eyebrow">Resumo</p>
+        <div class="bar-main" *ngIf="state !== 'idle' && vehicleSummary; else barEmpty">
+          <div class="bar-line">
+            <span class="bar-label">RENAVAM</span>
+            <span class="bar-value">{{ vehicleSummary.renavam }}</span>
+            <button
+              nz-button
+              nzType="text"
+              class="copy-btn"
+              (click)="copyRenavam()"
+              nz-tooltip
+              [nzTooltipTitle]="copyTooltip"
+              aria-label="Copiar RENAVAM"
+            >
+              <i class="fa-regular fa-copy"></i>
             </button>
           </div>
-        </form>
-      </ng-container>
-
-      <ng-template #consultaCollapsed>
-        <div class="consulta-collapsed">
-          <div class="collapsed-item">
-            <p class="label">RENAVAM</p>
-            <p class="value">{{ renavamControl.value }}</p>
+          <div class="bar-line" *ngIf="vehicleSummary.ano">
+            <span class="bar-label muted">Ano</span>
+            <span class="bar-meta strong">{{ vehicleSummary.ano }}</span>
+          </div>
+          <div class="bar-chips">
+            <span class="badge pill info" *ngIf="vehicleSummary.quantidade">
+              <i class="fa-regular fa-rectangle-list"></i>
+              {{ vehicleSummary.quantidade }} débitos
+            </span>
+            <span class="badge pill danger" *ngIf="vehicleSummary.vencidos">
+              <i class="fa-regular fa-clock"></i>
+              {{ vehicleSummary.vencidos }} vencidos
+            </span>
+            <span class="badge pill success" *ngIf="vehicleSummary.total">
+              <i class="fa-solid fa-wallet"></i>
+              {{ formatCurrency(vehicleSummary.total) }}
+            </span>
+            <span class="badge pill" *ngIf="vehicleSummary.protocol">
+              <i class="fa-regular fa-id-card"></i>
+              Protocolo {{ vehicleSummary.protocol }}
+            </span>
           </div>
         </div>
-      </ng-template>
-    </div>
-
-    <div class="card vehicle-card" *ngIf="state !== 'idle'">
-      <div class="card-head">
-        <p class="eyebrow">Resumo</p>
-        <div class="status-chip danger" *ngIf="state === 'error'">
-          <span class="dot danger"></span> Erro na consulta
-        </div>
+        <ng-template #barEmpty>
+          <div class="bar-main">
+            <span class="bar-placeholder">Informe o RENAVAM para consultar débitos e prosseguir.</span>
+          </div>
+        </ng-template>
       </div>
-
-      <div *ngIf="state === 'loading'" class="skeleton vehicle-skeleton">
-        <div class="skeleton-line short"></div>
-        <div class="skeleton-grid">
-          <span class="skeleton-line"></span>
-          <span class="skeleton-line"></span>
-        </div>
-      </div>
-
-      <div *ngIf="state === 'error'" class="error-box">
-        <div>
-          <h3>Não conseguimos consultar agora</h3>
-          <p>{{ consultaError }}</p>
-        </div>
-        <div class="error-actions">
-          <button nz-button nzType="default" (click)="retry()">Tentar novamente</button>
-          <button nz-button nzType="link" (click)="clear()">Limpar e reiniciar</button>
-        </div>
-      </div>
-
-      <div *ngIf="state === 'loaded' && vehicleSummary" class="vehicle-summary" @fadeUp>
-        <div class="summary-row">
-          <div>
-            <p class="label">RENAVAM</p>
-            <div class="value renavam">
-              {{ vehicleSummary.renavam }}
-              <button
-                nz-button
-                nzType="text"
-                class="copy-btn"
-                (click)="copyRenavam()"
-                nz-tooltip
-                [nzTooltipTitle]="copyTooltip"
-                aria-label="Copiar RENAVAM"
-              >
-                <i class="fa-regular fa-copy"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="summary-grid">
-          <div class="summary-item" *ngIf="vehicleSummary.placa">
-            <p class="label">Placa</p>
-            <div class="value">{{ vehicleSummary.placa }}</div>
-          </div>
-          <div class="summary-item" *ngIf="vehicleSummary.modelo">
-            <p class="label">Modelo</p>
-            <div class="value">{{ vehicleSummary.modelo }}</div>
-          </div>
-          <div class="summary-item" *ngIf="vehicleSummary.ano">
-            <p class="label">Ano</p>
-            <div class="value">{{ vehicleSummary.ano }}</div>
-          </div>
-          <div class="summary-item" *ngIf="vehicleSummary.cor">
-            <p class="label">Cor</p>
-            <div class="value">{{ vehicleSummary.cor }}</div>
-          </div>
-        </div>
-
-        <div class="meta">
-          <span class="badge pill">
-            <i class="fa-regular fa-rectangle-list"></i>
-            {{ vehicleSummary.quantidade }} débitos
-          </span>
-          <span class="badge pill danger" *ngIf="vehicleSummary.vencidos > 0">
-            <i class="fa-regular fa-clock"></i>
-            {{ vehicleSummary.vencidos }} vencidos
-          </span>
-          <span class="badge pill success">
-            <i class="fa-solid fa-wallet"></i>
-            {{ formatCurrency(vehicleSummary.total) }} total
-          </span>
-          <span class="badge pill" *ngIf="vehicleSummary.protocol">
-            <i class="fa-regular fa-id-card"></i>
-            Protocolo {{ vehicleSummary.protocol }}
-          </span>
-        </div>
+      <div class="bar-actions" *ngIf="state !== 'idle'">
+        <button
+          type="button"
+          nz-button
+          nzType="default"
+          class="ghost-btn compact"
+          (click)="toggleConsultaExpanded()"
+          [attr.aria-expanded]="consultaExpanded"
+        >
+          <i class="fa-regular fa-pen-to-square"></i>
+          Alterar RENAVAM
+        </button>
       </div>
     </div>
+
+    <form
+      nz-form
+      [formGroup]="form"
+      (ngSubmit)="submitConsulta()"
+      class="renavam-form inline"
+      novalidate
+      *ngIf="state === 'idle' || consultaExpanded"
+    >
+      <label for="renavam">
+        Número do RENAVAM
+        <span nz-tooltip nzTooltipTitle="Encontre no documento do veículo (CRLV/CRV)">
+          <i class="fa-regular fa-circle-question"></i>
+        </span>
+      </label>
+      <div class="input-wrap" [class.invalid]="renavamControl.invalid && renavamControl.touched">
+        <i class="fa-regular fa-clipboard"></i>
+        <input
+          nz-input
+          id="renavam"
+          type="text"
+          formControlName="renavam"
+          (input)="onRenavamInput($event)"
+          #renavamInput
+          placeholder="Ex: 77777777777"
+          inputmode="numeric"
+          autocomplete="off"
+          aria-describedby="renavam-hint"
+          [attr.aria-invalid]="renavamControl.invalid"
+        />
+        <div class="input-actions">
+          <button type="button" nz-button nzType="default" class="icon-btn" aria-label="Limpar RENAVAM" (click)="clear()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <span class="input-count">{{ renavamControl.value?.length || 0 }}/11</span>
+        </div>
+        <div class="input-progress">
+          <span [style.width.%]="renavamProgress" [class.valid]="(renavamControl.value?.length || 0) >= 9"></span>
+        </div>
+      </div>
+      <div class="field-row">
+        <p class="field-error" *ngIf="renavamControl.invalid && renavamControl.touched">RENAVAM deve ter 9 a 11 dígitos numéricos.</p>
+        <p class="field-hint" id="renavam-hint">Validamos em tempo real e só habilitamos a consulta quando estiver ok.</p>
+      </div>
+
+      <div class="actions">
+        <button type="submit" nz-button nzType="primary" class="submit" [disabled]="!isRenavamValid || state === 'loading'">
+          <i
+            class="fa-solid"
+            [class.fa-spinner]="state === 'loading'"
+            [class.spin]="state === 'loading'"
+            [class.fa-magnifying-glass]="state !== 'loading'"
+          ></i>
+          {{ state === 'loading' ? 'Consultando...' : (state === 'idle' ? 'Consultar' : 'Atualizar consulta') }}
+        </button>
+      </div>
+    </form>
   </div>
 
   <div class="debitos-shell" *ngIf="state !== 'idle'" [class.has-side]="state === 'loaded' && debitos.length">

@@ -116,6 +116,10 @@ $badge-variants: (
   height: 44px;
   @include inline-flex();
 }
+.ghost-btn.compact {
+  height: 40px;
+  padding: 0 12px;
+}
 
 .flow-steps {
   @include grid-cols(repeat(4, minmax(0, 1fr)), 10px);
@@ -184,16 +188,96 @@ $badge-variants: (
   color: $dark;
 }
 
-.grid {
-  margin-top: 14px;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 12px;
-}
-
 .card {
   @include card-surface;
   padding: 16px;
+}
+
+.consulta-inline {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.consulta-bar {
+  @include card-surface;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba($primary, 0.06) 0%, rgba($primary-strong, 0.04) 100%);
+  border-color: rgba($primary, 0.16);
+}
+
+.bar-info {
+  display: grid;
+  gap: 4px;
+}
+
+.bar-main {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
+.bar-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.bar-value {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: $dark;
+}
+
+.bar-label {
+  font-weight: 700;
+  color: $dark;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+}
+
+.bar-label.muted {
+  color: $muted;
+}
+
+.bar-meta {
+  color: $muted;
+  font-weight: 700;
+}
+
+.bar-meta.strong {
+  color: $dark;
+  font-weight: 800;
+}
+
+.bar-placeholder {
+  color: $muted;
+}
+
+.bar-divider {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $card-border;
+}
+
+.bar-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bar-actions {
+  display: flex;
+  align-items: center;
 }
 
 .card-head {
@@ -261,6 +345,12 @@ $badge-variants: (
 .renavam-form {
   display: grid;
   gap: 10px;
+}
+
+.renavam-form.inline {
+  @include card-surface;
+  padding: 14px;
+  background: #fff;
 }
 
 .renavam-form label {
@@ -655,46 +745,6 @@ $badge-variants: (
   color: $primary-strong;
 }
 
-.consulta-collapsed {
-  display: grid;
-  gap: 6px;
-  padding-top: 6px;
-}
-
-.consulta-collapsed .label {
-  margin: 0;
-  color: $muted;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.consulta-collapsed .value {
-  margin: 2px 0 0;
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: $dark;
-}
-
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.summary-item .label {
-  margin: 0;
-  color: $muted;
-  font-weight: 600;
-  font-size: 0.92rem;
-}
-
-.summary-item .value {
-  margin: 2px 0 0;
-  font-weight: 700;
-  color: $dark;
-}
-
 .group-row {
   @include flex-row(10px, center, space-between);
   padding: 10px 12px;
@@ -891,8 +941,9 @@ $badge-variants: (
 }
 
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .consulta-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .flow-steps {
@@ -1032,6 +1083,11 @@ $badge-variants: (
   }
 
   .primary-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ghost-btn.compact {
     width: 100%;
     justify-content: center;
   }
