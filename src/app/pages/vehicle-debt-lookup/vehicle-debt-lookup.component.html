@@ -52,7 +52,7 @@
           <p class="field-error" *ngIf="renavamError">{{ renavamError }}</p>
 
           <ng-container *ngIf="shouldShowEmailField">
-            <label for="email">E-mail <small>(opcional)</small></label>
+            <label for="email">E-mail <small>(obrigatorio)</small></label>
             <div class="input-wrap" [class.has-error]="emailError" [class.shake]="emailShake">
               <i class="fa-regular fa-envelope"></i>
               <input
@@ -60,22 +60,26 @@
                 nz-input
                 name="email"
                 type="email"
+                required
                 [value]="emailValue"
                 (input)="onEmailInput($event)"
                 #emailInput
                 placeholder="seu@email.com"
                 autocomplete="email"
               />
+              <div class="input-progress">
+                <span [style.width.%]="emailProgress" [class.valid]="isEmailValid"></span>
+              </div>
               <button type="button" nz-button nzType="default" class="icon-btn clear" aria-label="Limpar e-mail" (click)="clearEmail(emailInput)">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
-            <p class="field-hint">Opcional - enviaremos o resultado e atualizacoes do protocolo.</p>
+            <p class="field-hint">Obrigatorio - enviaremos o resultado e atualizacoes do protocolo.</p>
             <p class="field-error" *ngIf="emailError">{{ emailError }}</p>
 
           </ng-container>
 
-          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!isRenavamValid" (click)="goToSelectionDebit()">
+          <button type="button" nz-button nzType="primary" class="btn submit" [disabled]="!canSubmit" (click)="goToSelectionDebit()">
             <i class="fa-solid fa-magnifying-glass"></i>
             Consultar veiculo
           </button>
